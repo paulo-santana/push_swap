@@ -6,7 +6,7 @@
 /*   By: psergio- <psergio-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 15:30:59 by psergio-          #+#    #+#             */
-/*   Updated: 2021/09/27 21:25:15 by psergio-         ###   ########.fr       */
+/*   Updated: 2021/09/28 01:03:06 by psergio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,8 @@ void	read_instructions(t_stack *stack_a, t_stack *stack_b)
 			exit(1);
 		}
 		apply_instruction(instruction, stack_a, stack_b);
-		print_stack(stack_a);
+		print_stack("a", stack_a);
+		print_stack("b", stack_b);
 		free(instruction);
 	}
 	if (result != -1)

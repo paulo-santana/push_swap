@@ -12,13 +12,15 @@
 
 #include "libft.h"
 
-void	print_stack(t_stack *stack)
+void	print_stack(char *id, t_stack *stack)
 {
 	t_list	*list;
 	int		fd;
 
 	list = stack->top;
 	fd = 1;
+	ft_putstr_fd(id, fd);
+	ft_putstr_fd(": ", fd);
 	while (list)
 	{
 		ft_putchar_fd(' ', fd);
