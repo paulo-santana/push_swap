@@ -1,2 +1,8 @@
 *.o
 /push_swap
+/checker
+/checker_linux
+.cache
+compile_commands.json
+thoughts.txt
+vgcore*
