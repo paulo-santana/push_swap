@@ -76,6 +76,18 @@ void	apply_instruction(char *instruction, t_stack *stack_a, t_stack *stack_b)
 		else
 			ps_push(stack_a, stack_b);
 	}
+	if (*instruction == 's')
+	{
+		if (*(instruction + 1) == 'a')
+			ps_swap(stack_a);
+		else if (*(instruction + 1) == 'b')
+			ps_swap(stack_b);
+		else
+		{
+			ps_swap(stack_a);
+			ps_swap(stack_b);
+		}
+	}
 }
 
 /**

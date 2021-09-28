@@ -22,3 +22,14 @@ void	ps_push(t_stack *from, t_stack *to)
 		ft_stack_push(to, content);
 	}
 }
+
+void	ps_swap(t_stack *stack)
+{	
+	void	*content1;
+	void	*content2;
+
+	content1 = ft_stack_pop(stack);
+	content2 = ft_stack_pop(stack);
+	ft_stack_push(stack, content1);
+	ft_stack_push(stack, content2);
+}
