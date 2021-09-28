@@ -53,7 +53,7 @@ $(OBJ_DIR):
 	mkdir -p ./obj
 
 clean:
-	$(RM) $(OBJ)
+	$(RM) $(OBJ) $(CHECKER_OBJ) vgcore*
 
 fclean: clean
 	make -C $(LIBFT_DIR) fclean
