@@ -16,14 +16,17 @@
 
 int	is_sorted(t_stack *stack)
 {
-	int	i;
+	t_list	*list;
+	int		i;
 
-	i = 0;
+	i = 1;
+	list = stack->top;
 	while (i < stack->max_size)
 	{
-		if (*(int *)stack->top->content > *(int *)stack->top->next->content)
+		if (*(int *)list->content > *(int *)list->next->content)
 			return (0);
 		i++;
+		list = list->next;
 	}
 	return (1);
 }
@@ -67,27 +70,24 @@ static int	is_valid(char *instruction)
 	return (0);
 }
 
-void	apply_instruction(char *instruction, t_stack *stack_a, t_stack *stack_b)
+void	apply_command(char *command, t_stack *stack_a, t_stack *stack_b)
 {
-	if (*instruction == 'p')
-	{
-		if (*(instruction + 1) == 'a')
-			ps_push(stack_b, stack_a);
-		else
-			ps_push(stack_a, stack_b);
-	}
-	if (*instruction == 's')
-	{
-		if (*(instruction + 1) == 'a')
-			ps_swap(stack_a);
-		else if (*(instruction + 1) == 'b')
-			ps_swap(stack_b);
-		else
-		{
-			ps_swap(stack_a);
-			ps_swap(stack_b);
-		}
-	}
+	if (!ft_strncmp(command, "pa", 3))
+		ps_push(stack_b, stack_a);
+	else if (!ft_strncmp(command, "pb", 3))
+		ps_push(stack_a, stack_b);
+	if (!ft_strncmp(command, "sa", 3) || !ft_strncmp(command, "ss", 3))
+		ps_swap(stack_a);
+	if (!ft_strncmp(command, "sb", 3) || !ft_strncmp(command, "ss", 3))
+		ps_swap(stack_b);
+	if (!ft_strncmp(command, "ra", 3) || !ft_strncmp(command, "rr", 3))
+		ps_rotate(stack_a);
+	if (!ft_strncmp(command, "rb", 3) || !ft_strncmp(command, "rr", 3))
+		ps_rotate(stack_b);
+	if (!ft_strncmp(command, "rra", 4) || !ft_strncmp(command, "rrr", 4))
+		ps_reverse_rotate(stack_a);
+	if (!ft_strncmp(command, "rrb", 4) || !ft_strncmp(command, "rrr", 4))
+		ps_reverse_rotate(stack_b);
 }
 
 /**
@@ -112,7 +112,7 @@ void	read_instructions(t_stack *stack_a, t_stack *stack_b)
 			free(instruction);
 			exit(1);
 		}
-		apply_instruction(instruction, stack_a, stack_b);
+		apply_command(instruction, stack_a, stack_b);
 		print_stack("a", stack_a);
 		print_stack("b", stack_b);
 		free(instruction);
@@ -141,6 +141,10 @@ int	main(int argc, char *argv[])
 	fill_stack(stack_a, int_list);
 	free(int_list);
 	read_instructions(stack_a, stack_b);
+	if (is_sorted(stack_a) && stack_b->top == NULL)
+		ft_putstr_fd("OK\n", 1);
+	else
+		ft_putstr_fd("KO\n", 1);
 	ft_stack_destroy(stack_a);
 	ft_stack_destroy(stack_b);
 }

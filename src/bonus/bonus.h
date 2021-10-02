@@ -16,6 +16,8 @@
 
 void	ps_push(t_stack *from, t_stack *to);
 void	ps_swap(t_stack *stack);
+void	ps_rotate(t_stack *stack);
+void	ps_reverse_rotate(t_stack *stack);
 void	print_stack(char *id, t_stack *stack);
 
 #endif
