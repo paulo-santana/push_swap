@@ -10,11 +10,13 @@ LIBFT = $(LIBFT_DIR)/libft.a
 SRC := main.c								\
 	   solver.c								\
 	   validation.c							\
+	   error.c								\
 
 CHECKER_SRC := checker_bonus.c				\
 			   output_bonus.c 				\
 			   statements_handler_bonus.c	\
-			   validation.c
+			   validation.c					\
+			   error.c						\
 
 HEADERS := ./include/push_swap.h
 
@@ -53,6 +55,7 @@ $(OBJ_DIR):
 	mkdir -p ./obj
 
 clean:
+	make -C $(LIBFT_DIR) clean
 	$(RM) $(OBJ) $(CHECKER_OBJ) vgcore*
 
 fclean: clean

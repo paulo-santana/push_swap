@@ -21,7 +21,7 @@ int	is_sorted(t_stack *stack)
 
 	i = 1;
 	list = stack->top;
-	while (i < stack->max_size)
+	while (i < stack->size)
 	{
 		if (*(int *)list->content > *(int *)list->next->content)
 			return (0);
@@ -39,7 +39,7 @@ void	fill_stack(t_stack *stack, long long int *int_list)
 
 	i = 0;
 	list = NULL;
-	while (i < stack->max_size)
+	while (i < stack->size)
 	{
 		content = malloc(sizeof(int));
 		*content = int_list[i];
@@ -132,10 +132,10 @@ int	main(int argc, char *argv[])
 		quit_with_error();
 	list_size = argc - 1;
 	int_list = parse_arguments(&argv[1], list_size);
-	stack_a = ft_stack_new(list_size);
+	stack_a = ft_stack_new();
 	if (stack_a == NULL)
 		return (free(int_list), 4);
-	stack_b = ft_stack_new(list_size);
+	stack_b = ft_stack_new();
 	if (stack_b == NULL)
 		return (ft_stack_destroy(stack_a), free(int_list), 4);
 	fill_stack(stack_a, int_list);

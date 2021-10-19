@@ -24,7 +24,7 @@ int	main(int argc, char *argv[])
 
 	if (argc == 1)
 		quit_with_error();
-	int_list = parse_arguments(&argv[1], argc - 1);
+	int_list = parse_arguments(argv + 1, argc - 1);
 	stack = malloc(sizeof(t_stack));
 	if (stack == NULL)
 	{
