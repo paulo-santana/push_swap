@@ -10,12 +10,15 @@ LIBFT = $(LIBFT_DIR)/libft.a
 SRC := main.c								\
 	   solver.c								\
 	   validation.c							\
+	   validation_utils.c					\
 	   error.c								\
 
 CHECKER_SRC := checker_bonus.c				\
 			   output_bonus.c 				\
 			   statements_handler_bonus.c	\
+	   		   solver.c						\
 			   validation.c					\
+			   validation_utils.c			\
 			   error.c						\
 
 HEADERS := ./include/push_swap.h
@@ -28,6 +31,7 @@ CFLAGS := -Wall -Werror -Wextra -g3
 LFLAGS := -L$(LIBFT_DIR) -lft
 
 CC := clang
+VALGRIND := valgrind --leak-check=full --show-leak-kinds=all
 
 all: $(NAME)
 
@@ -43,7 +47,7 @@ $(LIBFT):
 	make -C $(LIBFT_DIR)
 
 run: $(NAME)
-	./$(NAME) 2 1 3 6 5 8 2147483647 -2147483648; sleep 3
+	$(VALGRIND) ./$(NAME) 2 1 3 6 5 8 2147483647 -2147483648; sleep 3
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/mandatory/%.c $(HEADERS)
 	$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@

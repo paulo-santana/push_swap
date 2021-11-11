@@ -6,7 +6,7 @@
 /*   By: psergio- <psergio-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 17:02:04 by psergio-          #+#    #+#             */
-/*   Updated: 2021/10/11 21:50:46 by psergio-         ###   ########.fr       */
+/*   Updated: 2021/10/22 07:54:09 by psergio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #define INT_MAX 2147483647
 #define INT_MIN -2147483648
 
-int	list_contains(long long int item, long long int *list, int size)
+static int	list_contains(long long int item, long long int *list, int size)
 {
 	int	i;
 
@@ -33,7 +33,7 @@ int	list_contains(long long int item, long long int *list, int size)
 	return (0);
 }
 
-int	is_valid(char **list)
+static int	is_valid(char **list)
 {
 	int	i;
 	int	is_valid;
@@ -49,7 +49,7 @@ int	is_valid(char **list)
 	return (is_valid);
 }
 
-void	free_split(char **list)
+static void	free_split(char **list)
 {
 	int	i;
 
@@ -101,8 +101,7 @@ static void	merge_list(char ***list1, char **list2, int *new_list_size)
 	*new_list_size = size;
 }
 
-long long int	*parse_arguments(char *list[], int str_list_size,
-		int *new_list_size)
+int	*parse_arguments(char *list[], int str_list_size, int *new_list_size)
 {
 	int		i;
 	int		list_size;
@@ -119,7 +118,6 @@ long long int	*parse_arguments(char *list[], int str_list_size,
 		printf("list size: %d\n", list_size);
 		i++;
 	}
-	print_list(full_list);
 	*new_list_size = list_size;
 	free_split(full_list);
 	return (NULL);

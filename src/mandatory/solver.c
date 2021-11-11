@@ -17,11 +17,23 @@
  * Returns true if the stack pointed to by the array *stack is sorted
  **/
 
-static int	is_sorted(t_stack *stack)
+int	is_sorted(t_stack *stack)
 {
-	(void)stack;
+	t_list	*list;
+	int		i;
+
+	i = 1;
+	list = stack->top;
+	while (i < stack->size)
+	{
+		if (*(int *)list->content > *(int *)list->next->content)
+			return (0);
+		i++;
+		list = list->next;
+	}
 	return (1);
 }
+
 
 static int	find_best_move(t_stack *stack)
 {

@@ -15,11 +15,8 @@
 # include <stddef.h>
 # include "../libft/libft.h"
 
-void			solve(t_stack *stack);
-void			quit_with_error(void);
-int				list_contains(
-					long long int item, long long int *list, int size);
-long long int	*parse_arguments(char *list[], int str_list_size,
-					int *new_list_size);
+void	solve(t_stack *stack);
+void	quit_with_error(void);
+int		*parse_arguments(char *list[], int str_list_size, int *new_list_size);
 
 #endif

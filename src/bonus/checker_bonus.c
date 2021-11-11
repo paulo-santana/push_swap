@@ -14,39 +14,16 @@
 #include "push_swap.h"
 #include "bonus.h"
 
-int	is_sorted(t_stack *stack)
+void	fill_stack(t_stack *stack, int *int_list, int int_list_size)
 {
-	t_list	*list;
-	int		i;
-
-	i = 1;
-	list = stack->top;
-	while (i < stack->size)
-	{
-		if (*(int *)list->content > *(int *)list->next->content)
-			return (0);
-		i++;
-		list = list->next;
-	}
-	return (1);
-}
-
-void	fill_stack(t_stack *stack, long long int *int_list)
-{
-	int		i;
 	int		*content;
-	t_list	*list;
 
-	i = 0;
-	list = NULL;
-	while (i < stack->size)
+	while (int_list_size--)
 	{
 		content = malloc(sizeof(int));
-		*content = int_list[i];
-		ft_lstadd_front(&list, ft_lstnew(content));
-		i++;
+		*content = int_list[int_list_size];
+		ft_stack_push(stack, content);
 	}
-	stack->top = list;
 }
 
 static int	is_valid(char *instruction)
@@ -123,7 +100,8 @@ void	read_instructions(t_stack *stack_a, t_stack *stack_b)
 
 int	main(int argc, char *argv[])
 {
-	long long int	*int_list;
+	int	*int_list;
+	int				int_list_size;
 	t_stack			*stack_a;
 	t_stack			*stack_b;
 	int				list_size;
@@ -131,14 +109,14 @@ int	main(int argc, char *argv[])
 	if (argc == 1)
 		quit_with_error();
 	list_size = argc - 1;
-	int_list = parse_arguments(&argv[1], list_size);
+	int_list = parse_arguments(&argv[1], list_size, &int_list_size);
 	stack_a = ft_stack_new();
 	if (stack_a == NULL)
 		return (free(int_list), 4);
 	stack_b = ft_stack_new();
 	if (stack_b == NULL)
 		return (ft_stack_destroy(stack_a), free(int_list), 4);
-	fill_stack(stack_a, int_list);
+	fill_stack(stack_a, int_list, int_list_size);
 	free(int_list);
 	read_instructions(stack_a, stack_b);
 	if (is_sorted(stack_a) && stack_b->top == NULL)
