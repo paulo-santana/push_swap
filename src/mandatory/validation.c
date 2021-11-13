@@ -16,51 +16,6 @@
 
 #include "../utils/utils.h"
 
-#define INT_MAX 2147483647
-#define INT_MIN -2147483648
-
-static int	list_contains(long long int item, long long int *list, int size)
-{
-	int	i;
-
-	i = 0;
-	while (i < size)
-	{
-		if (list[i] == item)
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-static int	is_valid(char **list)
-{
-	int	i;
-	int	is_valid;
-
-	i = 0;
-	is_valid = 1;
-	while (list[i])
-	{
-		if (!ft_isnumber(list[i]))
-			is_valid = 0;
-		i++;
-	}
-	return (is_valid);
-}
-
-static void	free_split(char **list)
-{
-	int	i;
-
-	if (list == NULL)
-		return ;
-	i = 0;
-	while (list[i])
-		free(list[i++]);
-	free(list);
-}
-
 static int	get_split_size(char **list)
 {
 	int	i;
@@ -101,24 +56,46 @@ static void	merge_list(char ***list1, char **list2, int *new_list_size)
 	*new_list_size = size;
 }
 
-int	*parse_arguments(char *list[], int str_list_size, int *new_list_size)
+static int	*make_int_list(char *str_list[], int list_size)
+{
+	int	i;
+	int	list_is_valid;
+	int	*int_list;
+
+	list_is_valid = validate_elements(str_list);
+	if (list_is_valid == 0)
+		return (NULL);
+	int_list = malloc(sizeof(int) * list_size);
+	if (int_list == NULL)
+		return (NULL);
+	i = 0;
+	while (i < list_size)
+	{
+		int_list[i] = ft_atoi(str_list[i]);
+		i++;
+	}
+	return (int_list);
+}
+
+int	*parse_arguments(char *list[], int str_list_size, int *out_list_size)
 {
 	int		i;
 	int		list_size;
+	int		*int_list;
 	char	**numbers;
-	char	**full_list;
+	char	**full_str_list;
 
 	i = 0;
-	full_list = NULL;
+	full_str_list = NULL;
 	while (i < str_list_size)
 	{
 		numbers = ft_split(list[i], ' ');
-		merge_list(&full_list, numbers, &list_size);
+		merge_list(&full_str_list, numbers, &list_size);
 		free(numbers);
-		printf("list size: %d\n", list_size);
 		i++;
 	}
-	*new_list_size = list_size;
-	free_split(full_list);
-	return (NULL);
+	int_list = make_int_list(full_str_list, list_size);
+	*out_list_size = list_size;
+	free_split(full_str_list);
+	return (int_list);
 }

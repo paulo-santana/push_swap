@@ -12,10 +12,11 @@ SRC := main.c								\
 	   validation.c							\
 	   validation_utils.c					\
 	   error.c								\
+	   statements_handler.c					\
+	   statements_printer.c					\
 
 CHECKER_SRC := checker_bonus.c				\
 			   output_bonus.c 				\
-			   statements_handler_bonus.c	\
 	   		   solver.c						\
 			   validation.c					\
 			   validation_utils.c			\

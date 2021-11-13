@@ -28,9 +28,9 @@ int	list_contains(long long int item, long long int *list, int size)
 
 int	validate_elements(char **list)
 {
-	int	i;
-	int	number_as_int;
-	int	is_valid;
+	int		i;
+	long	number_as_long;
+	int		is_valid;
 
 	i = 0;
 	is_valid = 1;
@@ -38,8 +38,8 @@ int	validate_elements(char **list)
 	{
 		if (!ft_isnumber(list[i]))
 			is_valid = 0;
-		number_as_int = ft_atol(list[i]);
-		if (number_as_int > 2147483647 || number_as_int < -2147483648)
+		number_as_long = ft_atol(list[i]);
+		if (number_as_long > 2147483647 || number_as_long < -2147483648)
 			is_valid = 0;
 		if (!is_valid)
 			break ;

@@ -1,31 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   output_bonus.c                                     :+:      :+:    :+:   */
+/*   statements_printer.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: psergio- <psergio-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/27 19:45:23 by psergio-          #+#    #+#             */
-/*   Updated: 2021/09/27 19:45:23 by psergio-         ###   ########.fr       */
+/*   Created: 2021/11/13 14:19:25 by psergio-          #+#    #+#             */
+/*   Updated: 2021/09/25 14:19:25 by psergio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "push_swap.h"
 
-void	print_stack(char *id, t_stack *stack)
+void	print_swap(t_stack *stack, char stack_id)
 {
-	t_list	*list;
-	int		fd;
+	char	move[3];
 
-	list = stack->top;
-	fd = 1;
-	ft_putstr_fd(id, fd);
-	ft_putstr_fd(": ", fd);
-	while (list)
-	{
-		ft_putchar_fd(' ', fd);
-		ft_putnbr_fd(*(int *)list->content, fd);
-		list = list->next;
-	}
-	ft_putchar_fd('\n', fd);
+	move[0] = 's';
+	move[1] = stack_id;
+	move[2] = '\0';
+	ps_swap(stack);
+	ft_putendl_fd(move, 1);
 }

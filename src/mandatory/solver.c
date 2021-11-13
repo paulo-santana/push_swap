@@ -12,6 +12,7 @@
 
 #include "libft.h"
 #include "push_swap.h"
+#include <stdio.h>
 
 /**
  * Returns true if the stack pointed to by the array *stack is sorted
@@ -35,15 +36,22 @@ int	is_sorted(t_stack *stack)
 }
 
 
-static int	find_best_move(t_stack *stack)
+static int	find_best_move(t_stack *stack_a, t_stack *stack_b)
 {
-	(void)stack;
+	if (*(int *)stack_a->top->content > *(int *)stack_a->top->next->content)
+		print_swap(stack_a, 'a');
 	return (1);
+	(void)stack_b;
 }
 
-void	solve(t_stack *stack)
+void	solve(t_stack *stack_a)
 {
-	while (!is_sorted(stack))
-		find_best_move(stack);
-	ft_putendl_fd("solved!", 1);
+	t_stack	*stack_b;
+
+	if (stack_a->size == 1)
+		return ;
+	stack_b = ft_stack_new();
+	while (!is_sorted(stack_a) || stack_b->size != 0)
+		find_best_move(stack_a, stack_b);
+	ft_stack_destroy(stack_b);
 }
