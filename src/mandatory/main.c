@@ -46,8 +46,6 @@ int	main(int argc, char *argv[])
 	if (int_list == NULL)
 		quit_with_error();
 	stack = ft_stack_new();
-	/* for (int i = 0; i < list_size; i++) */
-	/* 	printf("num: %d\n", int_list[i]); */
 	if (stack == NULL)
 	{
 		free(int_list);

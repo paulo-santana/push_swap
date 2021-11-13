@@ -59,4 +59,3 @@ void	free_split(char **list)
 		free(list[i++]);
 	free(list);
 }
-

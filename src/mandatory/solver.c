@@ -35,7 +35,6 @@ int	is_sorted(t_stack *stack)
 	return (1);
 }
 
-
 static int	find_best_move(t_stack *stack_a, t_stack *stack_b)
 {
 	if (*(int *)stack_a->top->content > *(int *)stack_a->top->next->content)
