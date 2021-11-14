@@ -9,6 +9,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 
 SRC := main.c								\
 	   solver.c								\
+	   solver_utils.c						\
 	   validation.c							\
 	   validation_utils.c					\
 	   error.c								\
@@ -17,9 +18,10 @@ SRC := main.c								\
 
 CHECKER_SRC := checker_bonus.c				\
 			   output_bonus.c 				\
-	   		   solver.c						\
+	   		   solver_utils.c				\
 			   validation.c					\
 			   validation_utils.c			\
+	   		   statements_handler.c			\
 			   error.c						\
 
 HEADERS := ./include/push_swap.h

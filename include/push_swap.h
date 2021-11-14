@@ -24,7 +24,10 @@ int		is_sorted(t_stack *stack);
 
 void	ps_push(t_stack *from, t_stack *to);
 void	ps_swap(t_stack *stack);
+void	ps_rotate(t_stack *stack);
+void	ps_reverse_rotate(t_stack *stack);
 
-void	print_swap(t_stack *stack, char stack_id);
+int	print_swap(t_stack *stack, char stack_id);
+int	print_rotate(t_stack *stack, char stack_id);
 
 #endif

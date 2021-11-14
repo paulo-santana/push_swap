@@ -48,6 +48,7 @@ void	ps_rotate(t_stack *stack)
 		return ;
 	content = ft_stack_pop(stack);
 	ft_lstadd_back(&stack->top, ft_lstnew(content));
+	stack->size++;
 }
 
 void	ps_reverse_rotate(t_stack *stack)

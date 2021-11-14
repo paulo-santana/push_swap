@@ -13,6 +13,7 @@
 #include "libft.h"
 #include "push_swap.h"
 #include "bonus.h"
+#include <stdio.h>
 
 void	fill_stack(t_stack *stack, int *int_list, int int_list_size)
 {
