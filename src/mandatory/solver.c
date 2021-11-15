@@ -13,26 +13,23 @@
 #include "libft.h"
 #include "push_swap.h"
 
-void get_min_max(t_stack *stack, int *out_min, int *out_max);
-
-/* static int	find_next_swap(t_stack *stack, int min, int max) */
-/* { */
-/* 	t_list	*list; */
-/*  */
-/* 	list = stack->top; */
-/* } */
+/**
+ * Prints the best instruction based on the stacks current state.
+ * Returns true if the movement have possibly been the last needed to 
+ * sort the stack. To confirm the stack has been sorted, a full check is needed.
+ */
 
 static int	find_best_move(t_stack *stack_a, t_stack *stack_b, int min, int max)
 {
-	int		current;
-	int		next;
+	int	current;
+	int	next;
 
 	current = *(int *)stack_a->top->content;
 	next = *(int *)stack_a->top->next->content;
 	if (current > next && (current != max || next != min))
-		return print_swap(stack_a, 'a');
+		return print_swap(stack_a, "sa");
 	else
-		return print_rotate(stack_a, 'a');
+		return print_rotate(stack_a, "ra");
 	(void)stack_b;
 }
 
@@ -42,7 +39,7 @@ static int	find_best_move(t_stack *stack_a, t_stack *stack_b, int min, int max)
  *
  * */
 
-static void	bring_to_front(t_stack *stack, int min)
+static void	bring_to_front(t_stack *stack, int target)
 {
 	int		i;
 	t_list	*list;
@@ -52,16 +49,18 @@ static void	bring_to_front(t_stack *stack, int min)
 	list = stack->top;
 	while (list)
 	{
-		if (*(int *)list->content == min)
+		if (*(int *)list->content == target)
 			break;
 		i++;
 		list = list->next;
 	}
-	if (i <= stack->size / 2)
-		instruction = "ra";
-	else
+	if (i > stack->size / 2)
+	{
+		i = stack->size - i;
 		instruction = "rra";
-	i = (i + 1) / 2;
+	}
+	else
+		instruction = "ra";
 	while (i--)
 		ft_putendl_fd(instruction, 1);
 }

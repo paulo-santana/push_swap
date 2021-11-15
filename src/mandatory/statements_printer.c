@@ -14,16 +14,12 @@
 
 
 /**
- * Prints a swap instruction based on the stack_id, and applies it on the given
- * stack. Returns true if the stack could be sorted after this instruction.
+ * Runs a swap instruction on the *stack and prints the instruction on the
+ * standard output. Returns true if the stack could be sorted after this
+ * instruction.
  * */
-int	print_swap(t_stack *stack, char stack_id)
+int	print_swap(t_stack *stack, char *move)
 {
-	char	move[3];
-
-	move[0] = 's';
-	move[1] = stack_id;
-	move[2] = '\0';
 	ps_swap(stack);
 	ft_putendl_fd(move, 1);
 	return (1);
@@ -34,13 +30,8 @@ int	print_swap(t_stack *stack, char stack_id)
  * given stack. Returns true if the stack could be sorted after this
  * instruction.
  * */
-int	print_rotate(t_stack *stack, char stack_id)
+int	print_rotate(t_stack *stack, char *move)
 {
-	char	move[3];
-
-	move[0] = 'r';
-	move[1] = stack_id;
-	move[2] = '\0';
 	ps_rotate(stack);
 	ft_putendl_fd(move, 1);
 	return (0);
