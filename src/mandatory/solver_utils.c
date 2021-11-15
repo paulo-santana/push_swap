@@ -13,7 +13,7 @@
 #include "libft.h"
 #include "push_swap.h"
 
-void min_max(t_stack *stack, int *out_min, int *out_max)
+void get_min_max(t_stack *stack, int *out_min, int *out_max)
 {
 	int		i;
 	t_list	*list;
@@ -36,16 +36,30 @@ void min_max(t_stack *stack, int *out_min, int *out_max)
  * Returns true if the stack pointed to by the array *stack is sorted
  **/
 
-int	is_sorted(t_stack *stack)
+int	is_sorted(t_stack *stack, int min, int max)
 {
 	t_list	*list;
+	int		current;
+	int		next;
 
+	if (stack->top == NULL)
+		return (1);
+	if (stack->size <= 1)
+		return (1);
 	list = stack->top;
+	current = *(int *)list->content;
+	next = *(int *)list->next->content;
 	while (list->next)
 	{
-		if (*(int *)list->content > *(int *)list->next->content)
+		if (current > next && (current != max || next != min))
 			return (0);
 		list = list->next;
+		current = *(int *)list->content;
+		if (list->next)
+			next = *(int *)list->next->content;
 	}
+	if (*(int *)list->content > *(int *)stack->top->content
+			&& (*(int *)list->content != max || *(int *)stack->top->content != min))
+		return (0);
 	return (1);
 }

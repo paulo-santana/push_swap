@@ -101,16 +101,15 @@ void	read_instructions(t_stack *stack_a, t_stack *stack_b)
 
 int	main(int argc, char *argv[])
 {
-	int	*int_list;
-	int				int_list_size;
-	t_stack			*stack_a;
-	t_stack			*stack_b;
-	int				list_size;
+	int		*int_list;
+	int		int_list_size;
+	t_stack	*stack_a;
+	t_stack	*stack_b;
+	int		result;
 
 	if (argc == 1)
 		quit_with_error();
-	list_size = argc - 1;
-	int_list = parse_arguments(&argv[1], list_size, &int_list_size);
+	int_list = parse_arguments(&argv[1], argc - 1, &int_list_size);
 	stack_a = ft_stack_new();
 	if (stack_a == NULL)
 		return (free(int_list), 4);
@@ -120,10 +119,9 @@ int	main(int argc, char *argv[])
 	fill_stack(stack_a, int_list, int_list_size);
 	free(int_list);
 	read_instructions(stack_a, stack_b);
-	if (is_sorted(stack_a) && stack_b->top == NULL)
-		ft_putstr_fd("OK\n", 1);
-	else
-		ft_putstr_fd("KO\n", 1);
+	result = get_result(stack_a, stack_b);
+	print_result(result);
 	ft_stack_destroy(stack_a);
 	ft_stack_destroy(stack_b);
+	exit(!result);
 }

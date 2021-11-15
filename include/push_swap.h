@@ -20,14 +20,14 @@ void	quit_with_error(void);
 int		*parse_arguments(char *list[], int str_list_size, int *new_list_size);
 void	free_split(char **list);
 int		validate_elements(char **list);
-int		is_sorted(t_stack *stack);
+int		is_sorted(t_stack *stack, int min, int max);
 
 void	ps_push(t_stack *from, t_stack *to);
 void	ps_swap(t_stack *stack);
 void	ps_rotate(t_stack *stack);
 void	ps_reverse_rotate(t_stack *stack);
 
-int	print_swap(t_stack *stack, char stack_id);
-int	print_rotate(t_stack *stack, char stack_id);
+int		print_swap(t_stack *stack, char stack_id);
+int		print_rotate(t_stack *stack, char stack_id);
 
 #endif

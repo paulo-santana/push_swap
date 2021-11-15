@@ -19,5 +19,8 @@ void	ps_swap(t_stack *stack);
 void	ps_rotate(t_stack *stack);
 void	ps_reverse_rotate(t_stack *stack);
 void	print_stack(char *id, t_stack *stack);
+int		get_result(t_stack *a, t_stack *b);
+void	print_result(int ok);
+int		checker_is_sorted(t_stack *stack);
 
 #endif

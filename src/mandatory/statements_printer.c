@@ -12,6 +12,11 @@
 
 #include "push_swap.h"
 
+
+/**
+ * Prints a swap instruction based on the stack_id, and applies it on the given
+ * stack. Returns true if the stack could be sorted after this instruction.
+ * */
 int	print_swap(t_stack *stack, char stack_id)
 {
 	char	move[3];
@@ -21,9 +26,14 @@ int	print_swap(t_stack *stack, char stack_id)
 	move[2] = '\0';
 	ps_swap(stack);
 	ft_putendl_fd(move, 1);
-	return (0);
+	return (1);
 }
 
+/**
+ * Prints a rotate instruction based on the stack_id, and applies it on the
+ * given stack. Returns true if the stack could be sorted after this
+ * instruction.
+ * */
 int	print_rotate(t_stack *stack, char stack_id)
 {
 	char	move[3];

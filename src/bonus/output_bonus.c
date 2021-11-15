@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "push_swap.h"
 
 void	print_stack(char *id, t_stack *stack)
 {
@@ -28,4 +29,17 @@ void	print_stack(char *id, t_stack *stack)
 		list = list->next;
 	}
 	ft_putchar_fd('\n', fd);
+}
+
+int	get_result(t_stack *a, t_stack *b)
+{
+	return (is_sorted(a) && b->top == NULL);
+}
+
+void	print_result(int ok)
+{
+	if (ok)
+		ft_putstr_fd("OK\n", 1);
+	else
+		ft_putstr_fd("KO\n", 1);
 }
