@@ -18,11 +18,18 @@
  * standard output. Returns true if the stack could be sorted after this
  * instruction.
  * */
-int	print_swap(t_stack *stack, char *move)
+int	print_swap(t_int_stack *stack, char *move)
 {
 	ps_swap(stack);
 	ft_putendl_fd(move, 1);
 	return (1);
+}
+
+int	print_push(t_int_stack *from, t_int_stack *to, char *move)
+{
+	ps_push(from, to);
+	ft_putendl_fd(move, 1);
+	return (0);
 }
 
 /**
@@ -30,9 +37,26 @@ int	print_swap(t_stack *stack, char *move)
  * given stack. Returns true if the stack could be sorted after this
  * instruction.
  * */
-int	print_rotate(t_stack *stack, char *move)
+int	print_rotate(t_int_stack *stack, char *move, int amount)
 {
-	ps_rotate(stack);
-	ft_putendl_fd(move, 1);
+	if (amount <= 0)
+		return 0;
+	while (amount--)
+	{
+		ps_rotate(stack);
+		ft_putendl_fd(move, 1);
+	}
+	return (0);
+}
+
+int	print_reverse_rotate(t_int_stack *stack, char *move, int amount)
+{
+	if (amount <= 0)
+		return 0;
+	while (amount--)
+	{
+		ps_reverse_rotate(stack);
+		ft_putendl_fd(move, 1);
+	}
 	return (0);
 }

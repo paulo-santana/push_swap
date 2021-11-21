@@ -10,51 +10,51 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "push_swap.h"
 
-void	ps_push(t_stack *from, t_stack *to)
+void	ps_push(t_int_stack *from, t_int_stack *to)
 {
-	void	*content;
+	int	value;
 
 	if (from->top)
 	{
-		content = ft_stack_pop(from);
-		ft_stack_push(to, content);
+		value = ft_int_stack_pop(from);
+		ft_int_stack_push(to, value);
 	}
 }
 
-void	ps_swap(t_stack *stack)
+void	ps_swap(t_int_stack *stack)
 {	
-	void	*content1;
-	void	*content2;
+	int content1;
+	int content2;
 
 	if (stack->top == NULL)
 		return ;
 	if (stack->top->next == NULL)
 		return ;
-	content1 = ft_stack_pop(stack);
-	content2 = ft_stack_pop(stack);
-	ft_stack_push(stack, content1);
-	ft_stack_push(stack, content2);
+	content1 = ft_int_stack_pop(stack);
+	content2 = ft_int_stack_pop(stack);
+	ft_int_stack_push(stack, content1);
+	ft_int_stack_push(stack, content2);
 }
 
-void	ps_rotate(t_stack *stack)
+void	ps_rotate(t_int_stack *stack)
 {
-	void	*content;
+	int	value;
 
 	if (stack->top == NULL)
 		return ;
 	if (stack->top->next == NULL)
 		return ;
-	content = ft_stack_pop(stack);
-	ft_lstadd_back(&stack->top, ft_lstnew(content));
+	value = ft_int_stack_pop(stack);
+	ft_int_lstadd_back(&stack->top, ft_int_lstnew(value));
 	stack->size++;
 }
 
-void	ps_reverse_rotate(t_stack *stack)
+void	ps_reverse_rotate(t_int_stack *stack)
 {
-	t_list	*second_last;
-	void	*content;
+	t_int_list	*second_last;
+	int			content;
 
 	if (stack->top == NULL)
 		return ;
@@ -63,8 +63,8 @@ void	ps_reverse_rotate(t_stack *stack)
 	second_last = stack->top;
 	while (second_last->next->next)
 		second_last = second_last->next;
-	content = second_last->next->content;
-	ft_lstadd_front(&stack->top, ft_lstnew(content));
-	ft_lstdelone(second_last->next, ft_stack_do_nothing);
+	content = second_last->next->value;
+	ft_int_lstadd_front(&stack->top, ft_int_lstnew(content));
+	ft_int_lstdelone(second_last->next);
 	second_last->next = NULL;
 }

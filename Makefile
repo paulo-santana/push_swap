@@ -7,6 +7,12 @@ OBJ_DIR = ./obj
 LIBFT_DIR = ./libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
+LIB_STACK_DIR = ./libs/stack
+LIB_LIST_DIR = ./libs/list
+
+LIB_STACK = $(LIB_STACK_DIR)/libstack.a
+LIB_LIST = $(LIB_LIST_DIR)/libint_list.a
+
 SRC := main.c								\
 	   solver.c								\
 	   solver_utils.c						\
@@ -15,6 +21,7 @@ SRC := main.c								\
 	   error.c								\
 	   statements_handler.c					\
 	   statements_printer.c					\
+	   quick_sort.c							\
 
 CHECKER_SRC := checker_bonus.c				\
 			   output_bonus.c 				\
@@ -29,16 +36,18 @@ HEADERS := ./include/push_swap.h
 OBJ := $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 CHECKER_OBJ := $(addprefix $(OBJ_DIR)/, $(CHECKER_SRC:.c=.o))
 
-IFLAGS := -I$(LIBFT_DIR) -I./include
+IFLAGS := -I./include
 CFLAGS := -Wall -Werror -Wextra -g3
-LFLAGS := -L$(LIBFT_DIR) -lft
+LFLAGS := -L$(LIBFT_DIR) -lft 				\
+		  -L$(LIB_STACK_DIR) -lstack 		\
+		  -L$(LIB_LIST_DIR) -lint_list 		\
 
 CC := clang
 VALGRIND := valgrind --leak-check=full --show-leak-kinds=all
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(OBJ_DIR) $(OBJ)
+$(NAME): $(LIB_STACK) $(LIB_LIST) $(LIBFT) $(OBJ_DIR) $(OBJ)
 	$(CC) -o $(NAME) $(OBJ) $(LFLAGS)
 
 $(CHECKER): $(LIBFT) $(OBJ_DIR) $(CHECKER_OBJ)
@@ -47,7 +56,13 @@ $(CHECKER): $(LIBFT) $(OBJ_DIR) $(CHECKER_OBJ)
 bonus: $(CHECKER)
 
 $(LIBFT):
-	make -C $(LIBFT_DIR)
+	make -j6 -C $(LIBFT_DIR)
+
+$(LIB_LIST):
+	make -j6 -C $(LIB_LIST_DIR)
+
+$(LIB_STACK):
+	make -j6 -C $(LIB_STACK_DIR)
 
 run: $(NAME)
 	$(VALGRIND) ./$(NAME) 2 1 3 6 5 8 2147483647 -2147483648; sleep 3
@@ -63,10 +78,16 @@ $(OBJ_DIR):
 
 clean:
 	make -C $(LIBFT_DIR) clean
+	make -C $(LIB_LIST_DIR) clean
+	make -C $(LIB_STACK_DIR) clean
 	$(RM) $(OBJ) $(CHECKER_OBJ) vgcore*
 
 fclean: clean
 	make -C $(LIBFT_DIR) fclean
+	make -C $(LIB_LIST_DIR) fclean
+	make -C $(LIB_STACK_DIR) fclean
 	$(RM) $(NAME)
 
-re: fclean all
+re:
+	make fclean
+	make all
