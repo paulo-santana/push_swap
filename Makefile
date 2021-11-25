@@ -16,6 +16,7 @@ LIB_LIST = $(LIB_LIST_DIR)/libint_list.a
 SRC := main.c								\
 	   solver.c								\
 	   solver_utils.c						\
+	   solver_three.c						\
 	   validation.c							\
 	   validation_utils.c					\
 	   error.c								\
@@ -25,7 +26,7 @@ SRC := main.c								\
 
 CHECKER_SRC := checker_bonus.c				\
 			   output_bonus.c 				\
-	   		   solver_utils.c				\
+	   		   utils_bonus.c				\
 			   validation.c					\
 			   validation_utils.c			\
 	   		   statements_handler.c			\

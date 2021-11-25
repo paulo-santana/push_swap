@@ -6,7 +6,7 @@
 /*   By: psergio- <psergio-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 15:30:59 by psergio-          #+#    #+#             */
-/*   Updated: 2021/09/28 01:03:06 by psergio-         ###   ########.fr       */
+/*   Updated: 2021/11/22 09:46:13 by psergio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,24 @@
 #include "bonus.h"
 #include <stdio.h>
 
-void	fill_stack(t_stack *stack, int *int_list, int int_list_size)
+void	fill_stack(t_int_stack *stack, int *int_list, int int_list_size)
 {
-	int		*content;
+	int		content;
 
 	while (int_list_size--)
 	{
-		content = malloc(sizeof(int));
-		*content = int_list[int_list_size];
-		ft_stack_push(stack, content);
+		content = int_list[int_list_size];
+		ft_int_stack_push(stack, content);
 	}
 }
 
 static int	is_valid(char *instruction)
 {
-	int			i;
-	static char	*valid_instructions[] = {
-		"sa", "sb", "ss", "pa", "pb", "ra", "rb", "rr", "rra", "rrb", "rrr",
-		NULL,
-	};
+	int		i;
+	char	*valid_instructions[12];
 
 	i = 0;
+	init_instructions(valid_instructions);
 	while (valid_instructions[i])
 	{
 		if (ft_strncmp(valid_instructions[i], instruction,
@@ -48,7 +45,7 @@ static int	is_valid(char *instruction)
 	return (0);
 }
 
-void	apply_command(char *command, t_stack *stack_a, t_stack *stack_b)
+void	apply_command(char *command, t_int_stack *stack_a, t_int_stack *stack_b)
 {
 	if (!ft_strncmp(command, "pa", 3))
 		ps_push(stack_b, stack_a);
@@ -72,7 +69,7 @@ void	apply_command(char *command, t_stack *stack_a, t_stack *stack_b)
  * Read the instructions from the stdin and apply them to the stack
  **/
 
-void	read_instructions(t_stack *stack_a, t_stack *stack_b)
+void	read_instructions(t_int_stack *stack_a, t_int_stack *stack_b)
 {
 	int		result;
 	char	*instruction;
@@ -85,8 +82,8 @@ void	read_instructions(t_stack *stack_a, t_stack *stack_b)
 		if (!is_valid(instruction))
 		{
 			ft_putendl_fd("Error", 2);
-			ft_stack_destroy(stack_a);
-			ft_stack_destroy(stack_b);
+			ft_int_stack_destroy(stack_a);
+			ft_int_stack_destroy(stack_b);
 			free(instruction);
 			exit(1);
 		}
@@ -101,27 +98,29 @@ void	read_instructions(t_stack *stack_a, t_stack *stack_b)
 
 int	main(int argc, char *argv[])
 {
-	int		*int_list;
-	int		int_list_size;
-	t_stack	*stack_a;
-	t_stack	*stack_b;
-	int		result;
+	int			*int_list;
+	int			int_list_size;
+	t_int_stack	*stack_a;
+	t_int_stack	*stack_b;
+	int			result;
 
 	if (argc == 1)
 		quit_with_error();
 	int_list = parse_arguments(&argv[1], argc - 1, &int_list_size);
-	stack_a = ft_stack_new();
+	stack_a = ft_int_stack_new();
 	if (stack_a == NULL)
 		return (free(int_list), 4);
-	stack_b = ft_stack_new();
+	stack_b = ft_int_stack_new();
 	if (stack_b == NULL)
-		return (ft_stack_destroy(stack_a), free(int_list), 4);
+		return (ft_int_stack_destroy(stack_a), free(int_list), 4);
 	fill_stack(stack_a, int_list, int_list_size);
 	free(int_list);
+	print_stack("a", stack_a);
+	print_stack("b", stack_b);
 	read_instructions(stack_a, stack_b);
 	result = get_result(stack_a, stack_b);
 	print_result(result);
-	ft_stack_destroy(stack_a);
-	ft_stack_destroy(stack_b);
+	ft_int_stack_destroy(stack_a);
+	ft_int_stack_destroy(stack_b);
 	exit(!result);
 }

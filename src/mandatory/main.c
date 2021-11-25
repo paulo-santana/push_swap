@@ -6,7 +6,7 @@
 /*   By: psergio- <psergio-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 09:35:42 by psergio-          #+#    #+#             */
-/*   Updated: 2021/09/22 09:43:13 by psergio-         ###   ########.fr       */
+/*   Updated: 2021/11/22 09:27:21 by psergio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ static void	init_data(t_data *data, t_int_stack *stack_a)
 	stack_b = ft_int_stack_new();
 	if (stack_b == NULL)
 		exit(1);
+	stack_a->id = 'a';
+	stack_b->id = 'b';
 	data->stack_a = stack_a;
 	data->stack_b = stack_b;
 	get_min_max(stack_a, &min, &max);
@@ -39,12 +41,14 @@ static void	init_data(t_data *data, t_int_stack *stack_a)
 	data->max = max;
 }
 
+void	solve_three(t_int_stack *stack, t_data *data);
+
 int	main(int argc, char *argv[])
 {
-	int		*int_list;
-	int		list_size;
+	int			*int_list;
+	int			list_size;
 	t_int_stack	*stack;
-	t_data	data;
+	t_data		data;
 
 	if (argc == 1)
 		quit_with_error();
@@ -62,7 +66,8 @@ int	main(int argc, char *argv[])
 	init_data(&data, stack);
 	data.solved_array = int_list;
 	data.solved_array_size = list_size;
-	solve(&data);
+	// solve(&data);
+	solve_three(data.stack_a, &data);
 	ft_int_stack_destroy(stack);
 	free(int_list);
 }

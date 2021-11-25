@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_int_stack.h"
 #include "libft.h"
 #include "push_swap.h"
-#include "ft_int_list.h"
 #include <stdio.h>
 
 static int	send_smaller_half(t_data *data, int pivot)
@@ -25,9 +25,9 @@ static int	send_smaller_half(t_data *data, int pivot)
 	while (data->stack_a->size > 2 && i--)
 	{
 		if (data->stack_a->top->value < middle)
-			print_push(data->stack_a, data->stack_b, "pb");
+			print_push(data->stack_a, data->stack_b, data->stack_b->id);
 		else
-			print_rotate(data->stack_a, "ra", 1);
+			print_rotate(data->stack_a, data->stack_a->id, 1);
 	}
 	return (0);
 }

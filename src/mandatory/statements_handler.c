@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   statements_handler_bonus.c                         :+:      :+:    :+:   */
+/*   statements_handler.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: psergio- <psergio-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 17:22:23 by psergio-          #+#    #+#             */
-/*   Updated: 2021/09/27 19:03:59 by psergio-         ###   ########.fr       */
+/*   Updated: 2021/11/22 09:27:54 by psergio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	ps_push(t_int_stack *from, t_int_stack *to)
 
 void	ps_swap(t_int_stack *stack)
 {	
-	int content1;
-	int content2;
+	int	content1;
+	int	content2;
 
 	if (stack->top == NULL)
 		return ;

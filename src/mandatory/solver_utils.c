@@ -13,9 +13,9 @@
 #include "libft.h"
 #include "push_swap.h"
 
-void get_min_max(t_int_stack *stack, int *out_min, int *out_max)
+void	get_min_max(t_int_stack *stack, int *out_min, int *out_max)
 {
-	int		i;
+	int			i;
 	t_int_list	*list;
 
 	i = 0;
@@ -36,30 +36,30 @@ void get_min_max(t_int_stack *stack, int *out_min, int *out_max)
  * Returns true if the stack pointed to by the array *stack is sorted
  **/
 
-int	is_sorted(t_stack *stack, int min, int max)
+int	is_sorted(t_int_stack *stack, int min, int max)
 {
-	t_list	*list;
-	int		current;
-	int		next;
+	t_int_list	*list;
+	int			current;
+	int			next;
 
 	if (stack->top == NULL)
 		return (1);
 	if (stack->size <= 1)
 		return (1);
 	list = stack->top;
-	current = *(int *)list->content;
-	next = *(int *)list->next->content;
+	current = list->value;
+	next = list->next->value;
 	while (list->next)
 	{
 		if (current > next && (current != max || next != min))
 			return (0);
 		list = list->next;
-		current = *(int *)list->content;
+		current = list->value;
 		if (list->next)
-			next = *(int *)list->next->content;
+			next = list->next->value;
 	}
-	if (*(int *)list->content > *(int *)stack->top->content
-			&& (*(int *)list->content != max || *(int *)stack->top->content != min))
+	if (list->value > stack->top->value
+		&& (list->value != max || stack->top->value != min))
 		return (0);
 	return (1);
 }
@@ -72,7 +72,7 @@ int	find_next_smallest(t_stack *stack)
 	t_list	*list;
 
 	if (stack->size == 1)
-		return 0;
+		return (0);
 	list = stack->top;
 	i = 0;
 	smallest_index = 0;
