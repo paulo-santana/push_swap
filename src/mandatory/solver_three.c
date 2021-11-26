@@ -6,12 +6,16 @@
 /*   By: psergio- <psergio-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 19:55:33 by psergio-          #+#    #+#             */
-/*   Updated: 2021/11/24 21:32:30 by psergio-         ###   ########.fr       */
+/*   Updated: 2021/11/25 22:07:23 by psergio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_int_list.h"
 #include "ft_int_stack.h"
 #include "push_swap.h"
+
+static void	solve_three_ascending(t_int_stack *stack, t_data *data);
+void		solve_three_descending(void);
 
 static void	solve_these_two(t_int_stack *stack)
 {
@@ -27,15 +31,57 @@ static void	solve_these_two(t_int_stack *stack)
 	}
 }
 
+static void	get_first_three(
+		t_int_stack *stack, int *current, int *next, t_int_list **third)
+{
+	*current = stack->top->value;
+	*next = stack->top->next->value;
+	*third = stack->top->next->next;
+}
+
+static void	swap_2nd_3rd(t_int_stack *stack)
+{
+	print_rotate(stack, stack->id, 1);
+	print_swap(stack, stack->id);
+	print_reverse_rotate(stack, stack->id, 1);
+}
+
+static void	put_first_on_third(t_int_stack *stack)
+{
+	print_swap(stack, stack->id);
+	print_rotate(stack, stack->id, 1);
+	print_swap(stack, stack->id);
+	print_reverse_rotate(stack, stack->id, 1);
+}
+
+static void	solve_three_ascending_helper(t_int_stack *stack, t_data *data)
+{
+	int			current;
+	int			next;
+	t_int_list	*third;
+
+	get_first_three(stack, &current, &next, &third);
+	if (current < next && current < third->value)
+	{
+		if (next > third->value)
+			swap_2nd_3rd(stack);
+	}
+	else if (current > next && next < third->value)
+		print_swap(stack, stack->id);
+	else if (current > next && current > third->value)
+		put_first_on_third(stack);
+	else if (current < next && next > third->value)
+		swap_2nd_3rd(stack);
+	solve_three_ascending(stack, data);
+}
+
 static void	solve_three_ascending(t_int_stack *stack, t_data *data)
 {
 	int			next;
 	int			current;
 	t_int_list	*third;
 
-	current = stack->top->value;
-	next = stack->top->next->value;
-	third = stack->top->next->next;
+	get_first_three(stack, &current, &next, &third);
 	if (current < next && next < third->value)
 		return ;
 	if (third->value > current && third->value > next)
@@ -50,6 +96,8 @@ static void	solve_three_ascending(t_int_stack *stack, t_data *data)
 		else if (next == data->max && next > third->value)
 			print_reverse_rotate(stack, stack->id, 1);
 	}
+	else
+		return (solve_three_ascending_helper(stack, data));
 	solve_three_ascending(stack, data);
 }
 
