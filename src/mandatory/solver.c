@@ -104,8 +104,8 @@ void	solve(t_data *data, int start, int end, char current_stack)
 		range.end = end;
 		get_from_and_target(&from, &target, &current_stack, data);
 		break_in_half(from, target, &range, data);
-		solve(data, pivot_index, range.end, 'a');
-		solve(data, range.start, pivot_index, 'b');
+		solve(data, pivot_index, end, 'a');
+		solve(data, start, pivot_index, 'b');
 	}
 	else if (current_stack == 'a')
 		solve_small(data->stack_a, data, end - start);
