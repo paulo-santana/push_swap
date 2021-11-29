@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: psergio- <psergio-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/22 09:35:42 by psergio-          #+#    #+#             */
-/*   Updated: 2021/11/22 09:27:21 by psergio-         ###   ########.fr       */
+/*   Created: 2021/11/28 17:10:51 by psergio-          #+#    #+#             */
+/*   Updated: 2021/11/28 17:10:51 by psergio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	init_data(t_data *data, t_int_stack *stack_a)
 
 	stack_b = ft_int_stack_new();
 	if (stack_b == NULL)
-		exit(1);
+		exit(2);
 	stack_a->id = 'a';
 	stack_b->id = 'b';
 	data->stack_a = stack_a;
@@ -54,20 +54,17 @@ int	main(int argc, char *argv[])
 		quit_with_error();
 	int_list = parse_arguments(argv + 1, argc - 1, &list_size);
 	if (int_list == NULL)
-		quit_with_error();
+		exit(2);
 	stack = ft_int_stack_new();
 	if (stack == NULL)
-	{
-		free(int_list);
-		quit_with_error();
-	}
+		exit(2);
 	int_array_to_stack(int_list, stack, list_size);
 	quick_sort(int_list, list_size);
 	init_data(&data, stack);
 	data.solved_array = int_list;
 	data.solved_array_size = list_size;
-	// solve(&data);
-	solve_three(data.stack_a, &data);
+	solve(&data, 0, list_size, 'a');
 	ft_int_stack_destroy(stack);
+	ft_int_stack_destroy(data.stack_b);
 	free(int_list);
 }

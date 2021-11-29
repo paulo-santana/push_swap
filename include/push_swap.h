@@ -2,6 +2,7 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
+
 /*                                                    +:+ +:+         +:+     */
 /*   By: psergio- <psergio-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -26,7 +27,9 @@ typedef struct s_data {
 	int			max;
 }	t_data;
 
-void	solve(t_data *data);
+void	solve_small(t_int_stack *stack, t_data *data, int size);
+void	solve(t_data *data, int start, int end, char current_stack);
+
 void	quit_with_error(void);
 int		*parse_arguments(char *list[], int str_list_size, int *new_list_size);
 void	free_split(char **list);

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: psergio- <psergio-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/25 15:30:59 by psergio-          #+#    #+#             */
-/*   Updated: 2021/11/22 09:46:13 by psergio-         ###   ########.fr       */
+/*   Created: 2021/11/28 17:11:00 by psergio-          #+#    #+#             */
+/*   Updated: 2021/11/28 17:11:00 by psergio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void	read_instructions(t_int_stack *stack_a, t_int_stack *stack_b)
 		apply_command(instruction, stack_a, stack_b);
 		print_stack("a", stack_a);
 		print_stack("b", stack_b);
+		ft_putendl_fd("", 1);
 		free(instruction);
 	}
 	if (result != -1)
