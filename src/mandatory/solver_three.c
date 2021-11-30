@@ -1,22 +1,11 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   solver_three.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: psergio- <psergio-@student.42sp.org.br>    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/24 19:55:33 by psergio-          #+#    #+#             */
-/*   Updated: 2021/11/27 19:02:56 by psergio-         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "ft_int_list.h"
 #include "ft_int_stack.h"
+#include "libft.h"
 #include "push_swap.h"
 
 static void	solve_three_ascending(t_int_stack *stack, t_data *data);
 
-static void	solve_these_two(t_int_stack *stack)
+static void	solve_these_two(t_int_stack *stack, t_data *data)
 {
 	if (stack->id == 'a')
 	{
@@ -27,6 +16,8 @@ static void	solve_these_two(t_int_stack *stack)
 	{
 		if (stack->top->value < stack->top->next->value)
 			print_swap(stack, stack->id);
+		print_push(data->stack_b, data->stack_a, 'a');
+		print_push(data->stack_b, data->stack_a, 'a');
 	}
 }
 
@@ -63,7 +54,7 @@ static void	solve_three_ascending_helper(t_int_stack *stack, t_data *data)
 	if (current < next && current < third->value)
 	{
 		if (next > third->value)
-			swap_2nd_3rd(stack);
+			return (swap_2nd_3rd(stack));
 	}
 	else if (current > next && next < third->value)
 		print_swap(stack, stack->id);
@@ -102,51 +93,71 @@ static void	solve_three_ascending(t_int_stack *stack, t_data *data)
 
 static void	solve_three_descending(t_int_stack *stack, t_data *data);
 
-static void	solve_three_descending_helper(t_int_stack *stack, t_data *data)
+static void	just_send_to_a(t_int_stack *stack_a, t_int_stack *stack_b)
 {
-	int			current;
-	int			next;
-	t_int_list	*third;
-
-	get_first_three(stack, &current, &next, &third);
-	if (current > next && current > third->value)
-	{
-		if (next < third->value)
-			swap_2nd_3rd(stack);
-	}
-	else if (current < next && next > third->value)
-		print_swap(stack, stack->id);
-	else if (current < next && current < third->value)
-		put_first_on_third(stack);
-	else if (current > next && next < third->value)
-		swap_2nd_3rd(stack);
-	solve_three_descending(stack, data);
+	print_push(stack_b, stack_a, 'a');
+	print_push(stack_b, stack_a, 'a');
+	print_push(stack_b, stack_a, 'a');
 }
 
-static void	solve_three_descending(t_int_stack *stack, t_data *data)
+static void	solve_three_descending_helper(t_int_stack *stack_b, t_data *data)
+{
+	int			first;
+	int			second;
+	t_int_list	*third;
+
+	get_first_three(stack_b, &first, &second, &third);
+	if (first < second)
+	{
+		print_push(stack_b, data->stack_a, 'a');
+		if (second < third->value)
+			print_swap(stack_b, stack_b->id);
+		print_push(stack_b, data->stack_a, 'a');
+		print_swap(data->stack_a, 'a');
+		print_push(stack_b, data->stack_a, 'a');
+		print_swap(data->stack_a, 'a');
+	}
+	else
+	{
+		print_push(stack_b, data->stack_a, 'a');
+		print_swap(data->stack_b, 'b');
+		print_push(stack_b, data->stack_a, 'a');
+		print_swap(data->stack_a, 'a');
+		print_push(stack_b, data->stack_a, 'a');
+	}
+}
+
+static void solve_biggest_on_top(t_int_stack *b, t_int_stack *a)
+{
+	print_push(b, a, 'a');
+	if (b->top->value < b->top->next->value)
+		print_swap(b, 'b');
+	print_push(b, a, 'a');
+	print_push(b, a, 'a');
+}
+
+static void	solve_three_descending(t_int_stack *stack_b, t_data *data)
 {
 	int			second;
 	int			first;
 	t_int_list	*third;
 
-	get_first_three(stack, &first, &second, &third);
+	get_first_three(stack_b, &first, &second, &third);
 	if (first > second && second > third->value)
-		return ;
-	if (third->value < first && third->value < second)
+		return (just_send_to_a(data->stack_a, data->stack_b));
+	if (first > second && first > third->value)
+		return (solve_biggest_on_top(stack_b, data->stack_a));
+	if (second > first && second > third->value)
 	{
-		if (first < second)
-			print_swap(stack, stack->id);
-	}
-	else if (third->next == NULL)
-	{
-		if (first < second || first < third->value)
-			print_rotate(stack, stack->id, 1);
-		else if (second == data->min && second < third->value)
-			print_reverse_rotate(stack, stack->id, 1);
+		print_swap(stack_b, stack_b->id);
+		print_push(stack_b, data->stack_a, 'a');
+		if (first < third->value)
+			print_swap(stack_b, stack_b->id);
+		print_push(stack_b, data->stack_a, 'a');
+		print_push(stack_b, data->stack_a, 'a');
 	}
 	else
-		return (solve_three_descending_helper(stack, data));
-	solve_three_descending(stack, data);
+		return (solve_three_descending_helper(stack_b, data));
 }
 
 void	solve_small(t_int_stack *stack, t_data *data, int size)
@@ -154,7 +165,7 @@ void	solve_small(t_int_stack *stack, t_data *data, int size)
 	if (stack->top == NULL || stack->top->next == NULL)
 		return ;
 	if (size == 2 || stack->top->next->next == NULL)
-		return (solve_these_two(stack));
+		return (solve_these_two(stack, data));
 	if (stack->id == 'a')
 		solve_three_ascending(stack, data);
 	else
