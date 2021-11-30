@@ -6,7 +6,7 @@
 /*   By: psergio- <psergio-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 14:19:25 by psergio-          #+#    #+#             */
-/*   Updated: 2021/11/29 06:50:16 by psergio-         ###   ########.fr       */
+/*   Updated: 2021/11/29 15:00:11 by psergio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	solve(t_data *data, int start, int end, char current_stack)
 {
 	int			pivot_index;
 	t_range		range;
-	int			i;
+	/* int			i; */
 	t_int_stack	*from;
 	t_int_stack	*target;
 
@@ -111,9 +111,9 @@ void	solve(t_data *data, int start, int end, char current_stack)
 		solve_small(data->stack_a, data, end - start);
 	else
 	{
-		i = end - start;
+		/* i = end - start; */
 		solve_small(data->stack_b, data, end - start);
-		while (i--)
-			print_push(data->stack_b, data->stack_a, 'a');
+		/* while (i--) */
+		/* 	print_push(data->stack_b, data->stack_a, 'a'); */
 	}
 }
