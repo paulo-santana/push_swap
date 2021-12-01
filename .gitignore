@@ -10,3 +10,4 @@ a.out
 visualizer.py
 output.txt
 test.sh
+*.a
