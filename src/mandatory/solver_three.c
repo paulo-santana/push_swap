@@ -164,6 +164,11 @@ void	solve_small(t_int_stack *stack, t_data *data, int size)
 {
 	if (stack->top == NULL || stack->top->next == NULL)
 		return ;
+	if (stack->id == 'a' && data->can_break_from_bottom)
+	{
+		data->can_break_from_bottom = 0;
+		print_reverse_rotate(stack, stack->id, size);
+	}
 	if (size == 2 || stack->top->next->next == NULL)
 		return (solve_these_two(stack, data));
 	if (stack->id == 'a')

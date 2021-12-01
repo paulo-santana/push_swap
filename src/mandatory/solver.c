@@ -6,7 +6,7 @@
 /*   By: psergio- <psergio-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 14:19:25 by psergio-          #+#    #+#             */
-/*   Updated: 2021/11/29 15:00:11 by psergio-         ###   ########.fr       */
+/*   Updated: 2021/12/01 12:33:31 by psergio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ static int	do_break(
 	t_range *range,
 	t_data *data)
 {
-	int	i;
-	int	pivot;
-	int	rotate_counter;
+	int			i;
+	int			pivot;
+	int			rotate_counter;
 
 	i = range->start;
 	pivot = data->solved_array[(range->start + range->end) / 2];
@@ -54,7 +54,7 @@ static int	do_break(
 	return (rotate_counter);
 }
 
-static void	break_in_half(
+static int	break_in_half(
 	t_int_stack *from,
 	t_int_stack *target,
 	t_range *range,
@@ -62,13 +62,21 @@ static void	break_in_half(
 {
 	int		should_rr;
 	int		rotate_counter;
+	int		can_break_from_bottom;
 
 	should_rr = 0;
+	can_break_from_bottom = 0;
 	if (range->end - range->start != from->size)
 		should_rr = 1;
 	rotate_counter = do_break(from, target, range, data);
 	if (should_rr)
-		print_reverse_rotate(from, from->id, rotate_counter);
+	{
+		if (rotate_counter > 2 && from->id == 'a')
+			can_break_from_bottom = 1;
+		else
+			print_reverse_rotate(from, from->id, rotate_counter);
+	}
+	return (can_break_from_bottom);
 }
 
 static void	get_from_and_target(
@@ -89,11 +97,30 @@ static void	get_from_and_target(
 	}
 }
 
+void	break_from_bottom(
+	t_int_stack *from,
+	t_int_stack *target,
+	t_range *range,
+	t_data *data)
+{
+	int	pivot;
+	int	i;
+
+	i = range->start;
+	pivot = data->solved_array[(range->start + range->end) / 2];
+	while (i++ < range->end)
+	{
+		print_reverse_rotate(from, from->id, 1);
+		if (from->top->value < pivot)
+			print_push(from, target, target->id);
+	}
+	data->can_break_from_bottom = 0;
+}
+
 void	solve(t_data *data, int start, int end, char current_stack)
 {
 	int			pivot_index;
 	t_range		range;
-	/* int			i; */
 	t_int_stack	*from;
 	t_int_stack	*target;
 
@@ -103,17 +130,15 @@ void	solve(t_data *data, int start, int end, char current_stack)
 		range.start = start;
 		range.end = end;
 		get_from_and_target(&from, &target, &current_stack, data);
-		break_in_half(from, target, &range, data);
+		if (data->can_break_from_bottom && current_stack == 'a')
+			break_from_bottom(from, target, &range, data);
+		else
+			data->can_break_from_bottom = break_in_half(from, target, &range, data);
 		solve(data, pivot_index, end, 'a');
 		solve(data, start, pivot_index, 'b');
 	}
 	else if (current_stack == 'a')
 		solve_small(data->stack_a, data, end - start);
 	else
-	{
-		/* i = end - start; */
 		solve_small(data->stack_b, data, end - start);
-		/* while (i--) */
-		/* 	print_push(data->stack_b, data->stack_a, 'a'); */
-	}
 }

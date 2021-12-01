@@ -25,6 +25,7 @@ typedef struct s_data {
 	int			solved_array_size;
 	int			min;
 	int			max;
+	int			can_break_from_bottom;
 }	t_data;
 
 void	solve_small(t_int_stack *stack, t_data *data, int size);

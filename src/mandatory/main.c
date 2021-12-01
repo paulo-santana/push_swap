@@ -37,6 +37,7 @@ static void	init_data(t_data *data, t_int_stack *stack_a)
 	data->stack_a = stack_a;
 	data->stack_b = stack_b;
 	get_min_max(stack_a, &min, &max);
+	data->can_break_from_bottom = 0;
 	data->min = min;
 	data->max = max;
 }
