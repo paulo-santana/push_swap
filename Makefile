@@ -43,7 +43,7 @@ LFLAGS := -L$(LIBFT_DIR) -lft 				\
 		  -L$(LIB_STACK_DIR) -lstack 		\
 		  -L$(LIB_LIST_DIR) -lint_list 		\
 
-CC := clang
+CC := gcc
 VALGRIND := valgrind --leak-check=full --show-leak-kinds=all
 
 all: $(NAME)

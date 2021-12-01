@@ -30,7 +30,7 @@ NAME = libft.a
 CFLAGS = -g -Wall -Werror -Wextra -I$(INCLUDE_DIR)
 LIBFLAGS = rcs
 
-CC = clang ${CFLAGS}
+CC = gcc ${CFLAGS}
 MAKELIB = ar ${LIBFLAGS}
 
 all: ${NAME}

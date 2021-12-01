@@ -12,7 +12,7 @@ INCLUDE_DIR = ../../include
 
 CFLAGS = -Wall -Werror -Wextra -g
 
-CC = clang
+CC = gcc
 AR = ar
 
 all: $(NAME)
