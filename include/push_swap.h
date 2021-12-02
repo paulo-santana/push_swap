@@ -26,6 +26,7 @@ typedef struct s_data {
 	int			min;
 	int			max;
 	int			can_break_from_bottom;
+	t_list		*instructions;
 }	t_data;
 
 void	solve_small(t_int_stack *stack, t_data *data, int size);
@@ -43,11 +44,17 @@ void	ps_swap(t_int_stack *stack);
 void	ps_rotate(t_int_stack *stack);
 void	ps_reverse_rotate(t_int_stack *stack);
 
-int		print_swap(t_int_stack *stack, char target_id);
-int		print_push(t_int_stack *from, t_int_stack *to, char target_id);
-int		print_rotate(t_int_stack *stack, char target_id, int amount);
-int		print_reverse_rotate(t_int_stack *stack, char target_id, int amount);
+void	run_swap(
+		t_int_stack *stack, char target_id, t_data *data);
+void	run_push(
+		t_int_stack *from, t_int_stack *to, char target_id, t_data *data);
+void	run_rotate(
+		t_int_stack *stack, char target_id, int amount, t_data *data);
+void	run_reverse_rotate(
+		t_int_stack *stack, char target_id, int amount, t_data *data);
 
 int		*quick_sort(int *array, int size);
+
+void	clear_instructions(t_list	*list);
 
 #endif

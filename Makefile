@@ -23,6 +23,7 @@ SRC := main.c								\
 	   statements_handler.c					\
 	   statements_printer.c					\
 	   quick_sort.c							\
+	   optmizer.c							\
 
 CHECKER_SRC := checker_bonus.c				\
 			   output_bonus.c 				\

@@ -44,10 +44,10 @@ static int	do_break(
 	while (i++ < range->end && from->size > 2)
 	{
 		if (do_compare(from, pivot))
-			print_push(from, target, target->id);
+			run_push(from, target, target->id, data);
 		else
 		{
-			print_rotate(from, from->id, 1);
+			run_rotate(from, from->id, 1, data);
 			rotate_counter++;
 		}
 	}
@@ -74,7 +74,7 @@ static int	break_in_half(
 		if (rotate_counter > 2 && from->id == 'a')
 			can_break_from_bottom = 1;
 		else
-			print_reverse_rotate(from, from->id, rotate_counter);
+			run_reverse_rotate(from, from->id, rotate_counter, data);
 	}
 	return (can_break_from_bottom);
 }
@@ -110,9 +110,9 @@ void	break_from_bottom(
 	pivot = data->solved_array[(range->start + range->end) / 2];
 	while (i++ < range->end)
 	{
-		print_reverse_rotate(from, from->id, 1);
+		run_reverse_rotate(from, from->id, 1, data);
 		if (from->top->value < pivot)
-			print_push(from, target, target->id);
+			run_push(from, target, target->id, data);
 	}
 	data->can_break_from_bottom = 0;
 }

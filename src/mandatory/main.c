@@ -40,9 +40,8 @@ static void	init_data(t_data *data, t_int_stack *stack_a)
 	data->can_break_from_bottom = 0;
 	data->min = min;
 	data->max = max;
+	data->instructions = NULL;
 }
-
-void	solve_three(t_int_stack *stack, t_data *data);
 
 int	main(int argc, char *argv[])
 {
@@ -65,6 +64,7 @@ int	main(int argc, char *argv[])
 	data.solved_array = int_list;
 	data.solved_array_size = list_size;
 	solve(&data, 0, list_size, 'a');
+	clear_instructions(data.instructions);
 	ft_int_stack_destroy(stack);
 	ft_int_stack_destroy(data.stack_b);
 	free(int_list);
