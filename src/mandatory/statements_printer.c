@@ -6,7 +6,7 @@
 /*   By: psergio- <psergio-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 14:19:25 by psergio-          #+#    #+#             */
-/*   Updated: 2021/12/02 14:37:23 by psergio-         ###   ########.fr       */
+/*   Updated: 2021/12/02 16:36:01 by psergio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@
 
 void	run_swap(t_int_stack *stack, char target_id, t_data *data)
 {
-	char	*move;
+	int	instruction;
 
-	move = malloc(3);
-	move[0] = 's';
-	move[1] = target_id;
-	move[2] = '\0';
+	if (target_id == 'a')
+		instruction = SA;
+	else
+		instruction = SB;
 	ps_swap(stack);
-	ft_lstadd_front(&data->instructions, ft_lstnew(move));
+	ft_int_lstadd_front(&data->instructions, ft_int_lstnew(instruction));
 }
 
 /**
@@ -42,16 +42,14 @@ void	run_push(
 	char target_id,
 	t_data *data)
 {
-	char	*move;
+	int	instruction;
 
-	move = malloc(3);
-	if (move == NULL)
-		exit (1);
-	move[0] = 'p';
-	move[1] = target_id;
-	move[2] = '\0';
+	if (target_id == 'a')
+		instruction = PA;
+	else
+		instruction = PB;
 	ps_push(from, to);
-	ft_lstadd_front(&data->instructions, ft_lstnew(move));
+	ft_int_lstadd_front(&data->instructions, ft_int_lstnew(instruction));
 }
 
 /**
@@ -61,20 +59,18 @@ void	run_push(
 
 void	run_rotate(t_int_stack *stack, char target_id, int amount, t_data *data)
 {
-	char	*move;
+	int	instruction;
 
-	move = malloc(3);
-	if (move == NULL)
-		exit (1);
-	move[0] = 'r';
-	move[1] = target_id;
-	move[2] = '\0';
+	if (target_id == 'a')
+		instruction = RA;
+	else
+		instruction = RB;
 	if (amount <= 0)
 		return ;
 	while (amount--)
 	{
 		ps_rotate(stack);
-		ft_lstadd_front(&data->instructions, ft_lstnew(move));
+		ft_int_lstadd_front(&data->instructions, ft_int_lstnew(instruction));
 	}
 }
 
@@ -84,20 +80,17 @@ void	run_reverse_rotate(
 	int amount,
 	t_data *data)
 {
-	char	*move;
+	int	instruction;
 
-	move = malloc(4);
-	if (move == NULL)
-		exit (1);
-	move[0] = 'r';
-	move[1] = 'r';
-	move[2] = target_id;
-	move[3] = '\0';
+	if (target_id == 'a')
+		instruction = RRA;
+	else
+		instruction = RRB;
 	if (amount <= 0)
 		return ;
 	while (amount--)
 	{
 		ps_reverse_rotate(stack);
-		ft_lstadd_front(&data->instructions, ft_lstnew(move));
+		ft_int_lstadd_front(&data->instructions, ft_int_lstnew(instruction));
 	}
 }
