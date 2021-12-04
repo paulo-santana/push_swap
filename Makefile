@@ -17,13 +17,16 @@ SRC := main.c								\
 	   solver.c								\
 	   solver_utils.c						\
 	   solver_three.c						\
+	   solver_three_ascending.c				\
+	   solver_three_descending.c			\
 	   validation.c							\
 	   validation_utils.c					\
 	   error.c								\
 	   statements_handler.c					\
-	   statements_printer.c					\
+	   statements_runner.c					\
 	   quick_sort.c							\
 	   optmizer.c							\
+	   output.c								\
 
 CHECKER_SRC := checker_bonus.c				\
 			   output_bonus.c 				\

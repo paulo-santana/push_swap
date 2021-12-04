@@ -6,7 +6,7 @@
 /*   By: psergio- <psergio-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/13/25 14:19:25 by psergio-          #+#    #+#             */
-/*   Updated: 2021/09/25 14:19:25 by psergio-         ###   ########.fr       */
+/*   Updated: 2021/12/04 13:16:02 by psergio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,46 @@ int	find_next_smallest(t_stack *stack)
 		i++;
 	}
 	return (smallest_index);
+}
+
+int	is_sorted(t_data *data)
+{
+	int			true;
+	int			false;
+	t_int_list	*list;
+
+	false = 0;
+	true = 1;
+	if (data->stack_b->size != 0)
+		return (false);
+	if (data->stack_a->top->value != data->min)
+		return (false);
+	if (data->stack_a->top == NULL)
+		return (true);
+	list = data->stack_a->top;
+	while (list->next)
+	{
+		if (list->value > list->next->value)
+			return (false);
+		list = list->next;
+	}
+	return (true);
+}
+
+void	get_from_and_target(
+	t_int_stack **from,
+	t_int_stack **target,
+	char *current_stack,
+	t_data *data)
+{
+	if (*current_stack == 'a')
+	{
+		*from = data->stack_a;
+		*target = data->stack_b;
+	}
+	else
+	{
+		*from = data->stack_b;
+		*target = data->stack_a;
+	}
 }

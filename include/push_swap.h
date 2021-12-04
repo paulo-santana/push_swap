@@ -43,6 +43,13 @@ typedef struct s_data {
 void	solve_small(t_int_stack *stack, t_data *data, int size);
 void	solve(t_data *data, int start, int end, char current_stack);
 
+void	get_first_three(
+			t_int_stack *stack, int *current, int *next, t_int_list **third);
+
+void	solve_three_ascending(t_int_stack *stack, t_data *data);
+void	solve_three_ascending_helper(t_int_stack *stack, t_data *data);
+void	solve_three_descending(t_int_stack *stack_b, t_data *data);
+
 void	quit_with_error(void);
 int		*parse_arguments(char *list[], int str_list_size, int *new_list_size);
 void	free_split(char **list);
@@ -66,6 +73,14 @@ void	run_reverse_rotate(
 
 int		*quick_sort(int *array, int size);
 
+int		*list_to_array(t_int_list *list, int *out_size);
+void	optmize_instructions(int *instructions, int size);
 void	clear_instructions(t_int_list	*list);
+
+void	get_from_and_target(
+			t_int_stack **from,
+			t_int_stack **target,
+			char *current_stack,
+			t_data *data);
 
 #endif

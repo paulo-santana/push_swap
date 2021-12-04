@@ -80,24 +80,6 @@ static int	break_in_half(
 	return (can_break_from_bottom);
 }
 
-static void	get_from_and_target(
-	t_int_stack **from,
-	t_int_stack **target,
-	char *current_stack,
-	t_data *data)
-{
-	if (*current_stack == 'a')
-	{
-		*from = data->stack_a;
-		*target = data->stack_b;
-	}
-	else
-	{
-		*from = data->stack_b;
-		*target = data->stack_a;
-	}
-}
-
 void	break_from_bottom(
 	t_int_stack *from,
 	t_int_stack *target,
@@ -118,30 +100,6 @@ void	break_from_bottom(
 	data->can_break_from_bottom = 0;
 }
 
-int	is_sorted(t_data *data)
-{
-	int			true;
-	int			false;
-	t_int_list	*list;
-
-	false = 0;
-	true = 1;
-	if (data->stack_b->size != 0)
-		return (false);
-	if (data->stack_a->top->value != data->min)
-		return (false);
-	if (data->stack_a->top == NULL)
-		return (true);
-	list = data->stack_a->top;
-	while (list->next)
-	{
-		if (list->value > list->next->value)
-			return (false);
-		list = list->next;
-	}
-	return (true);
-}
-
 void	solve(t_data *data, int start, int end, char current_stack)
 {
 	int			pivot_index;
@@ -160,7 +118,8 @@ void	solve(t_data *data, int start, int end, char current_stack)
 		if (data->can_break_from_bottom && current_stack == 'a')
 			break_from_bottom(from, target, &range, data);
 		else
-			data->can_break_from_bottom = break_in_half(from, target, &range, data);
+			data->can_break_from_bottom = break_in_half(
+					from, target, &range, data);
 		solve(data, pivot_index, end, 'a');
 		solve(data, start, pivot_index, 'b');
 	}
