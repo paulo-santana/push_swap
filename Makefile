@@ -99,3 +99,6 @@ fclean: clean
 re:
 	make fclean
 	make all
+
+norme:
+	norminette src libft libs include
