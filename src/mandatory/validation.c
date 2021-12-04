@@ -75,7 +75,7 @@ static int	*make_int_list(char *str_list[], int list_size)
 	return (int_list);
 }
 
-int	*parse_arguments(char *list[], int str_list_size, int *out_list_size)
+int	*parse_arguments(char *list[], int str_list_size, int *out_int_list_size)
 {
 	int		i;
 	int		list_size;
@@ -93,7 +93,7 @@ int	*parse_arguments(char *list[], int str_list_size, int *out_list_size)
 		i++;
 	}
 	int_list = make_int_list(full_str_list, list_size);
-	*out_list_size = list_size;
+	*out_int_list_size = list_size;
 	free_split(full_str_list);
 	return (int_list);
 }
