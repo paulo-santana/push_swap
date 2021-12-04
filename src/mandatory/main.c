@@ -76,7 +76,7 @@ int	main(int argc, char *argv[])
 	t_data		data;
 
 	if (argc == 1)
-		quit_with_error();
+		return (0);
 	int_list = parse_arguments(argv + 1, argc - 1, &list_size);
 	if (int_list == NULL)
 		exit(2);

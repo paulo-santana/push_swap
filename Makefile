@@ -60,9 +60,6 @@ $(CHECKER): $(LIB_STACK) $(LIB_LIST) $(LIBFT) $(OBJ_DIR) $(CHECKER_OBJ)
 
 bonus: $(CHECKER)
 
-test: all
-	bash test.sh
-
 $(LIBFT):
 	make -j6 -C $(LIBFT_DIR)
 
