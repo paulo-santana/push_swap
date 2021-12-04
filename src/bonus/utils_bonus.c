@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "bonus.h"
+#include <stdio.h>
 
 int	checker_is_sorted(t_int_stack *stack)
 {
@@ -23,6 +24,7 @@ int	checker_is_sorted(t_int_stack *stack)
 	list = stack->top;
 	while (list->next)
 	{
+		printf("value: %d\n", list->value);
 		if (list->value > list->next->value)
 			return (0);
 		list = list->next;
@@ -30,18 +32,39 @@ int	checker_is_sorted(t_int_stack *stack)
 	return (1);
 }
 
-void	init_instructions(char *instructions[12])
+void	init_instructions(char *instructions[13])
 {
-	instructions[0] = "sa";
-	instructions[1] = "sb";
-	instructions[2] = "ss";
-	instructions[3] = "pa";
-	instructions[4] = "pb";
-	instructions[5] = "ra";
-	instructions[6] = "rb";
-	instructions[7] = "rr";
-	instructions[8] = "rra";
-	instructions[9] = "rrb";
-	instructions[10] = "rrr";
-	instructions[11] = NULL;
+	instructions[0] = "void";
+	instructions[SA] = "sa";
+	instructions[SB] = "sb";
+	instructions[SS] = "ss";
+	instructions[PA] = "pa";
+	instructions[PB] = "pb";
+	instructions[RA] = "ra";
+	instructions[RB] = "rb";
+	instructions[RR] = "rr";
+	instructions[RRA] = "rra";
+	instructions[RRB] = "rrb";
+	instructions[RRR] = "rrr";
+	instructions[12] = NULL;
+}
+
+int	check_duplicates(int *list, int list_size)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < list_size)
+	{
+		j = i + 1;
+		while (j < list_size)
+		{
+			if (list[i] == list[j])
+				return (1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
 }

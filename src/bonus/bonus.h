@@ -15,10 +15,10 @@
 # include "libft.h"
 # include "push_swap.h"
 
-void	print_stack(char *id, t_int_stack *stack);
 int		get_result(t_int_stack *a, t_int_stack *b);
 void	print_result(int ok);
 int		checker_is_sorted(t_int_stack *stack);
-void	init_instructions(char *instructions[12]);
+void	init_instructions(char *instructions[13]);
+int		check_duplicates(int *list, int list_size);
 
 #endif

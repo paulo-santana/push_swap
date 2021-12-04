@@ -42,10 +42,11 @@ OBJ := $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 CHECKER_OBJ := $(addprefix $(OBJ_DIR)/, $(CHECKER_SRC:.c=.o))
 
 IFLAGS := -I./include
-CFLAGS := -Wall -Werror -Wextra -g3
+CFLAGS := -Wall -Werror -Wextra -g3 -fsanitize=address
 LFLAGS := -L$(LIBFT_DIR) -lft 				\
 		  -L$(LIB_STACK_DIR) -lstack 		\
 		  -L$(LIB_LIST_DIR) -lint_list 		\
+		  -fsanitize=address
 
 CC := gcc
 VALGRIND := valgrind --leak-check=full --show-leak-kinds=all
@@ -70,7 +71,7 @@ $(LIB_STACK):
 	make -j6 -C $(LIB_STACK_DIR)
 
 run: $(NAME)
-	$(VALGRIND) ./$(NAME) 2 1 3 6 5 8 2147483647 -2147483648; sleep 3
+	$(VALGRIND) ./$(NAME) 2 1 3 6 5 8 2147483647 -2147483648
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/mandatory/%.c $(HEADERS)
 	$(CC) $(CFLAGS) $(IFLAGS) -c $< -o $@

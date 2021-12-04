@@ -6,7 +6,7 @@
 /*   By: psergio- <psergio-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 17:11:00 by psergio-          #+#    #+#             */
-/*   Updated: 2021/11/28 17:11:00 by psergio-         ###   ########.fr       */
+/*   Updated: 2021/12/04 16:34:51 by psergio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ void	fill_stack(t_int_stack *stack, int *int_list, int int_list_size)
 static int	is_valid(char *instruction)
 {
 	int		i;
-	char	*valid_instructions[12];
+	char	*valid_instructions[13];
 
-	i = 0;
+	i = 1;
 	init_instructions(valid_instructions);
 	while (valid_instructions[i])
 	{
@@ -45,23 +45,42 @@ static int	is_valid(char *instruction)
 	return (0);
 }
 
+static int	command_to_int(char *command, char *instructions[13])
+{
+	int	i;
+
+	i = 0;
+	while (i < 11)
+	{
+		if (ft_strncmp(command, instructions[i + 1], 4) == 0)
+			return (i + 1);
+		i++;
+	}
+	return (0);
+}
+
 void	apply_command(char *command, t_int_stack *stack_a, t_int_stack *stack_b)
 {
-	if (!ft_strncmp(command, "pa", 3))
+	int		instruction;
+	char	*instructions[13];
+
+	init_instructions(instructions);
+	instruction = command_to_int(command, instructions);
+	if (instruction == PA)
 		ps_push(stack_b, stack_a);
-	else if (!ft_strncmp(command, "pb", 3))
+	else if (instruction == PB)
 		ps_push(stack_a, stack_b);
-	if (!ft_strncmp(command, "sa", 3) || !ft_strncmp(command, "ss", 3))
+	if (instruction == SA || instruction == SS)
 		ps_swap(stack_a);
-	if (!ft_strncmp(command, "sb", 3) || !ft_strncmp(command, "ss", 3))
+	if (instruction == SB || instruction == SS)
 		ps_swap(stack_b);
-	if (!ft_strncmp(command, "ra", 3) || !ft_strncmp(command, "rr", 3))
+	if (instruction == RA || instruction == RR)
 		ps_rotate(stack_a);
-	if (!ft_strncmp(command, "rb", 3) || !ft_strncmp(command, "rr", 3))
+	if (instruction == RB || instruction == RR)
 		ps_rotate(stack_b);
-	if (!ft_strncmp(command, "rra", 4) || !ft_strncmp(command, "rrr", 4))
+	if (instruction == RRA || instruction == RRR)
 		ps_reverse_rotate(stack_a);
-	if (!ft_strncmp(command, "rrb", 4) || !ft_strncmp(command, "rrr", 4))
+	if (instruction == RRB || instruction == RRR)
 		ps_reverse_rotate(stack_b);
 }
 
@@ -87,14 +106,20 @@ void	read_instructions(t_int_stack *stack_a, t_int_stack *stack_b)
 			free(instruction);
 			exit(1);
 		}
+		ft_putendl_fd(instruction, 2);
 		apply_command(instruction, stack_a, stack_b);
-		print_stack("a", stack_a);
-		print_stack("b", stack_b);
-		ft_putendl_fd("", 1);
 		free(instruction);
 	}
+	printf("gnl result: %d\n", result);
 	if (result != -1)
 		free(instruction);
+}
+
+static void	clear_data(t_int_stack *a, t_int_stack *b, int *list)
+{
+	ft_int_stack_destroy(a);
+	ft_int_stack_destroy(b);
+	free(list);
 }
 
 int	main(int argc, char *argv[])
@@ -109,19 +134,18 @@ int	main(int argc, char *argv[])
 		quit_with_error();
 	int_list = parse_arguments(&argv[1], argc - 1, &int_list_size);
 	stack_a = ft_int_stack_new();
-	if (stack_a == NULL)
-		return (free(int_list), 4);
 	stack_b = ft_int_stack_new();
-	if (stack_b == NULL)
-		return (ft_int_stack_destroy(stack_a), free(int_list), 4);
+	if (stack_b == NULL || stack_a == NULL)
+		exit(2);
+	if (check_duplicates(int_list, int_list_size))
+	{
+		clear_data(stack_a, stack_b, int_list);
+		quit_with_error();
+	}
 	fill_stack(stack_a, int_list, int_list_size);
-	free(int_list);
-	print_stack("a", stack_a);
-	print_stack("b", stack_b);
 	read_instructions(stack_a, stack_b);
 	result = get_result(stack_a, stack_b);
 	print_result(result);
-	ft_int_stack_destroy(stack_a);
-	ft_int_stack_destroy(stack_b);
+	clear_data(stack_a, stack_b, int_list);
 	exit(!result);
 }

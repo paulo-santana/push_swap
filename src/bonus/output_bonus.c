@@ -13,24 +13,6 @@
 #include "push_swap.h"
 #include "bonus.h"
 
-void	print_stack(char *id, t_int_stack *stack)
-{
-	t_int_list	*list;
-	int			fd;
-
-	list = stack->top;
-	fd = 1;
-	ft_putstr_fd(id, fd);
-	ft_putstr_fd(": ", fd);
-	while (list)
-	{
-		ft_putchar_fd(' ', fd);
-		ft_putnbr_fd(list->value, fd);
-		list = list->next;
-	}
-	ft_putchar_fd('\n', fd);
-}
-
 int	get_result(t_int_stack *a, t_int_stack *b)
 {
 	return (checker_is_sorted(a) && b->top == NULL);
