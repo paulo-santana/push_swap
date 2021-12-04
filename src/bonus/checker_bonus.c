@@ -106,11 +106,9 @@ void	read_instructions(t_int_stack *stack_a, t_int_stack *stack_b)
 			free(instruction);
 			exit(1);
 		}
-		ft_putendl_fd(instruction, 2);
 		apply_command(instruction, stack_a, stack_b);
 		free(instruction);
 	}
-	printf("gnl result: %d\n", result);
 	if (result != -1)
 		free(instruction);
 }

@@ -65,7 +65,6 @@ static void	clear_data(t_data *data)
 	ft_int_stack_destroy(data->stack_a);
 	ft_int_stack_destroy(data->stack_b);
 	ft_int_lstclear(&data->instructions);
-	ft_putendl_fd("ps exiting\n", 2);
 	free(data->solved_array);
 }
 
