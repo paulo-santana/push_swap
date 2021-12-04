@@ -94,7 +94,7 @@ fclean: clean
 	make -C $(LIBFT_DIR) fclean
 	make -C $(LIB_LIST_DIR) fclean
 	make -C $(LIB_STACK_DIR) fclean
-	$(RM) $(NAME)
+	$(RM) $(NAME) $(CHECKER)
 
 re:
 	make fclean
