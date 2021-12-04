@@ -14,8 +14,6 @@
 #include "push_swap.h"
 #include <stdio.h>
 
-#include "../utils/utils.h"
-
 static int	get_split_size(char **list)
 {
 	int	i;
