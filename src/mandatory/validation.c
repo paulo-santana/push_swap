@@ -6,7 +6,7 @@
 /*   By: psergio- <psergio-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 17:02:04 by psergio-          #+#    #+#             */
-/*   Updated: 2021/10/22 07:54:09 by psergio-         ###   ########.fr       */
+/*   Updated: 2021/12/04 15:04:43 by psergio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,13 @@ static int	*make_int_list(char *str_list[], int list_size)
 
 	list_is_valid = validate_elements(str_list);
 	if (list_is_valid == 0)
-		return (NULL);
+	{
+		free_split(str_list);
+		quit_with_error();
+	}
 	int_list = malloc(sizeof(int) * list_size);
 	if (int_list == NULL)
-		return (NULL);
+		exit(2);
 	i = 0;
 	while (i < list_size)
 	{
@@ -87,6 +90,11 @@ int	*parse_arguments(char *list[], int str_list_size, int *out_int_list_size)
 	full_str_list = NULL;
 	while (i < str_list_size)
 	{
+		if (ft_strlen(list[i]) == 0)
+		{
+			free_split(full_str_list);
+			quit_with_error();
+		}
 		numbers = ft_split(list[i], ' ');
 		merge_list(&full_str_list, numbers, &list_size);
 		free(numbers);

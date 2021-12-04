@@ -6,7 +6,7 @@
 /*   By: psergio- <psergio-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 17:10:51 by psergio-          #+#    #+#             */
-/*   Updated: 2021/11/28 17:10:51 by psergio-         ###   ########.fr       */
+/*   Updated: 2021/12/04 15:30:39 by psergio-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	int_array_to_stack(int *list, t_int_stack *stack, int list_size)
 	}
 }
 
-static void	init_data(t_data *data, t_int_stack *stack_a)
+static void	init_data(t_data *data, t_int_stack *stack_a,
+		int *int_list, int len)
 {
 	int			min;
 	int			max;
@@ -41,6 +42,30 @@ static void	init_data(t_data *data, t_int_stack *stack_a)
 	data->min = min;
 	data->max = max;
 	data->instructions = NULL;
+	data->solved_array = int_list;
+	data->solved_array_size = len;
+}
+
+static int	has_duplicates(int *list, int list_size)
+{
+	int	i;
+
+	i = 0;
+	while (i < list_size - 1)
+	{
+		if (list[i] == list[i + 1])
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+static void	clear_data(t_data *data)
+{
+	ft_int_stack_destroy(data->stack_a);
+	ft_int_stack_destroy(data->stack_b);
+	ft_int_lstclear(&data->instructions);
+	free(data->solved_array);
 }
 
 int	main(int argc, char *argv[])
@@ -60,12 +85,13 @@ int	main(int argc, char *argv[])
 		exit(2);
 	int_array_to_stack(int_list, stack, list_size);
 	quick_sort(int_list, list_size);
-	init_data(&data, stack);
-	data.solved_array = int_list;
-	data.solved_array_size = list_size;
+	init_data(&data, stack, int_list, list_size);
+	if (has_duplicates(int_list, list_size))
+	{
+		clear_data(&data);
+		quit_with_error();
+	}
 	solve(&data, 0, list_size, 'a');
 	clear_instructions(data.instructions);
-	ft_int_stack_destroy(stack);
-	ft_int_stack_destroy(data.stack_b);
-	free(int_list);
+	clear_data(&data);
 }
