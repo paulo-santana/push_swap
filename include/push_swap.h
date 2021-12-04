@@ -47,7 +47,7 @@ void	quit_with_error(void);
 int		*parse_arguments(char *list[], int str_list_size, int *new_list_size);
 void	free_split(char **list);
 int		validate_elements(char **list);
-int		is_sorted(t_int_stack *stack, int min, int max);
+int		is_sorted(t_data *stack);
 void	get_min_max(t_int_stack *stack, int *out_min, int *out_max);
 
 void	ps_push(t_int_stack *from, t_int_stack *to);

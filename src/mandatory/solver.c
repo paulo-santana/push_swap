@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_int_list.h"
 #include "ft_int_stack.h"
 #include "libft.h"
 #include "push_swap.h"
@@ -117,6 +118,30 @@ void	break_from_bottom(
 	data->can_break_from_bottom = 0;
 }
 
+int	is_sorted(t_data *data)
+{
+	int			true;
+	int			false;
+	t_int_list	*list;
+
+	false = 0;
+	true = 1;
+	if (data->stack_b->size != 0)
+		return (false);
+	if (data->stack_a->top->value != data->min)
+		return (false);
+	if (data->stack_a->top == NULL)
+		return (true);
+	list = data->stack_a->top;
+	while (list->next)
+	{
+		if (list->value > list->next->value)
+			return (false);
+		list = list->next;
+	}
+	return (true);
+}
+
 void	solve(t_data *data, int start, int end, char current_stack)
 {
 	int			pivot_index;
@@ -124,6 +149,8 @@ void	solve(t_data *data, int start, int end, char current_stack)
 	t_int_stack	*from;
 	t_int_stack	*target;
 
+	if (is_sorted(data))
+		return ;
 	pivot_index = (start + end) / 2;
 	if (end - start > 3)
 	{

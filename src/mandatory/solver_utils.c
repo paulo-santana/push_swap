@@ -36,34 +36,6 @@ void	get_min_max(t_int_stack *stack, int *out_min, int *out_max)
  * Returns true if the stack pointed to by the array *stack is sorted
  **/
 
-int	is_sorted(t_int_stack *stack, int min, int max)
-{
-	t_int_list	*list;
-	int			current;
-	int			next;
-
-	if (stack->top == NULL)
-		return (1);
-	if (stack->size <= 1)
-		return (1);
-	list = stack->top;
-	current = list->value;
-	next = list->next->value;
-	while (list->next)
-	{
-		if (current > next && (current != max || next != min))
-			return (0);
-		list = list->next;
-		current = list->value;
-		if (list->next)
-			next = list->next->value;
-	}
-	if (list->value > stack->top->value
-		&& (list->value != max || stack->top->value != min))
-		return (0);
-	return (1);
-}
-
 int	find_next_smallest(t_stack *stack)
 {
 	int		smallest;
