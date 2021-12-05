@@ -12,7 +12,6 @@
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
-# include <stddef.h>
 # include "libft.h"
 # include "ft_int_list.h"
 # include "ft_int_stack.h"
@@ -28,6 +27,11 @@
 # define SS 9
 # define RR 10
 # define RRR 11
+
+typedef struct s_range {
+	int	start;
+	int	end;
+}	t_range;
 
 typedef struct s_data {
 	t_int_stack	*stack_a;

@@ -12,7 +12,6 @@
 
 #include "libft.h"
 #include "push_swap.h"
-#include <stdio.h>
 
 static int	get_split_size(char **list)
 {

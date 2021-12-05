@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "bonus.h"
-#include <stdio.h>
 
 int	checker_is_sorted(t_int_stack *stack)
 {

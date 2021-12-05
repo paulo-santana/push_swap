@@ -12,8 +12,6 @@
 
 #include "libft.h"
 #include "push_swap.h"
-#include "ft_int_stack.h"
-#include <stdio.h>
 
 void	int_array_to_stack(int *list, t_int_stack *stack, int list_size)
 {

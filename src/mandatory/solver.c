@@ -10,16 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_int_list.h"
-#include "ft_int_stack.h"
 #include "libft.h"
 #include "push_swap.h"
-#include <stdio.h>
-
-typedef struct s_range {
-	int	start;
-	int	end;
-}	t_range;
 
 static int	do_compare(t_int_stack *from, int pivot)
 {

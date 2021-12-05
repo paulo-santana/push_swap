@@ -13,7 +13,6 @@
 #include "libft.h"
 #include "push_swap.h"
 #include "bonus.h"
-#include <stdio.h>
 
 static int	is_valid(char *instruction)
 {
