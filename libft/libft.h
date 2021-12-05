@@ -15,7 +15,9 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-# define BUFFER_SIZE 32
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 32
+# endif
 
 typedef struct s_buffer {
 	int		start;

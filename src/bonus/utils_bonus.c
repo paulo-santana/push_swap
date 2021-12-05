@@ -24,7 +24,6 @@ int	checker_is_sorted(t_int_stack *stack)
 	list = stack->top;
 	while (list->next)
 	{
-		printf("value: %d\n", list->value);
 		if (list->value > list->next->value)
 			return (0);
 		list = list->next;
