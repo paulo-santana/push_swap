@@ -42,11 +42,10 @@ OBJ := $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 CHECKER_OBJ := $(addprefix $(OBJ_DIR)/, $(CHECKER_SRC:.c=.o))
 
 IFLAGS := -I./include
-CFLAGS := -Wall -Werror -Wextra -g3 -fsanitize=address
+CFLAGS := -Wall -Werror -Wextra -g3
 LFLAGS := -L$(LIBFT_DIR) -lft 				\
 		  -L$(LIB_STACK_DIR) -lstack 		\
 		  -L$(LIB_LIST_DIR) -lint_list 		\
-		  -fsanitize=address
 
 CC := gcc
 VALGRIND := valgrind --leak-check=full --show-leak-kinds=all
