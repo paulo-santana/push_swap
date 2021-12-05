@@ -62,13 +62,13 @@ $(CHECKER): $(LIB_STACK) $(LIB_LIST) $(LIBFT) $(OBJ_DIR) $(CHECKER_OBJ)
 bonus: $(CHECKER)
 
 $(LIBFT):
-	make -C $(LIBFT_DIR)
+	make -j6 -C $(LIBFT_DIR)
 
 $(LIB_LIST):
-	make -C $(LIB_LIST_DIR)
+	make -j6 -C $(LIB_LIST_DIR)
 
 $(LIB_STACK):
-	make -C $(LIB_STACK_DIR)
+	make -j6 -C $(LIB_STACK_DIR)
 
 run: $(NAME)
 	$(VALGRIND) ./$(NAME) 2 1 3 6 5 8 2147483647 -2147483648

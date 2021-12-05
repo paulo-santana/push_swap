@@ -20,5 +20,7 @@ void	print_result(int ok);
 int		checker_is_sorted(t_int_stack *stack);
 void	init_instructions(char *instructions[13]);
 int		check_duplicates(int *list, int list_size);
+void	clear_data(t_int_stack *a, t_int_stack *b, int *list);
+void	fill_stack(t_int_stack *stack, int *int_list, int int_list_size);
 
 #endif

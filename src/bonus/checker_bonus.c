@@ -15,17 +15,6 @@
 #include "bonus.h"
 #include <stdio.h>
 
-void	fill_stack(t_int_stack *stack, int *int_list, int int_list_size)
-{
-	int		content;
-
-	while (int_list_size--)
-	{
-		content = int_list[int_list_size];
-		ft_int_stack_push(stack, content);
-	}
-}
-
 static int	is_valid(char *instruction)
 {
 	int		i;
@@ -111,13 +100,6 @@ void	read_instructions(t_int_stack *stack_a, t_int_stack *stack_b)
 	}
 	if (result != -1)
 		free(instruction);
-}
-
-static void	clear_data(t_int_stack *a, t_int_stack *b, int *list)
-{
-	ft_int_stack_destroy(a);
-	ft_int_stack_destroy(b);
-	free(list);
 }
 
 int	main(int argc, char *argv[])
