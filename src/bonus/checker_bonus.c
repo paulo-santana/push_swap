@@ -110,7 +110,7 @@ int	main(int argc, char *argv[])
 	int			result;
 
 	if (argc == 1)
-		quit_with_error();
+		exit(0);
 	int_list = parse_arguments(&argv[1], argc - 1, &int_list_size);
 	stack_a = ft_int_stack_new();
 	stack_b = ft_int_stack_new();

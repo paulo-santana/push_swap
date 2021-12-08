@@ -12,6 +12,7 @@
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
+
 # include "libft.h"
 # include "ft_int_list.h"
 # include "ft_int_stack.h"
@@ -63,6 +64,7 @@ void	get_min_max(t_int_stack *stack, int *out_min, int *out_max);
 
 void	ps_push(t_int_stack *from, t_int_stack *to);
 void	ps_swap(t_int_stack *stack);
+
 void	ps_rotate(t_int_stack *stack);
 void	ps_reverse_rotate(t_int_stack *stack);
 
